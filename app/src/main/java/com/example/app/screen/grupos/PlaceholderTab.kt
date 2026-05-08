@@ -1,4 +1,4 @@
-package com.example.app.screen.grupos
+package com.remembergo.app.screen.grupos
 
 import android.net.Uri
 import androidx.compose.animation.AnimatedVisibility
@@ -50,11 +50,11 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import com.example.app.R
-import com.example.app.models.GrupoResponse
-import com.example.app.screen.components.AppButton
-import com.example.app.viewmodel.GrupoState
-import com.example.app.viewmodel.GrupoViewModel
+import com.remembergo.app.R
+import com.remembergo.app.models.GrupoResponse
+import com.remembergo.app.screen.components.AppButton
+import com.remembergo.app.viewmodel.GrupoState
+import com.remembergo.app.viewmodel.GrupoViewModel
 import kotlinx.coroutines.delay
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
@@ -77,16 +77,16 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import com.example.app.network.RetrofitClient
-import com.example.app.repository.GrupoRepository
-import com.example.app.screen.components.AppTextField
-import com.example.app.screen.components.rememberAppSnackbarState
-import com.example.app.screen.components.showSuccessSnackbar
-import com.example.app.viewmodel.GrupoViewModelFactory
-import com.example.app.screen.components.AppSnackbarHost
-import com.example.app.screen.components.showErrorSnackbar
-import com.example.app.viewmodel.NotificationViewModel
-import com.example.app.websocket.NotificationWebSocketManager
+import com.remembergo.app.network.RetrofitClient
+import com.remembergo.app.repository.GrupoRepository
+import com.remembergo.app.screen.components.AppTextField
+import com.remembergo.app.screen.components.rememberAppSnackbarState
+import com.remembergo.app.screen.components.showSuccessSnackbar
+import com.remembergo.app.viewmodel.GrupoViewModelFactory
+import com.remembergo.app.screen.components.AppSnackbarHost
+import com.remembergo.app.screen.components.showErrorSnackbar
+import com.remembergo.app.viewmodel.NotificationViewModel
+import com.remembergo.app.websocket.NotificationWebSocketManager
 import kotlinx.coroutines.launch
 
 @Composable

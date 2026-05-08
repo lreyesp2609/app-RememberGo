@@ -1,4 +1,4 @@
-package com.example.app.screen.grupos.components
+package com.remembergo.app.screen.grupos.components
 
 import android.widget.Toast
 import androidx.compose.foundation.clickable
@@ -48,11 +48,11 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.app.models.IntegranteGrupo
-import com.example.app.screen.components.AppBackButton
-import com.example.app.utils.SessionManager
-import com.example.app.viewmodel.IntegrantesViewModel
-import com.example.app.viewmodel.IntegrantesViewModelFactory
+import com.remembergo.app.models.IntegranteGrupo
+import com.remembergo.app.screen.components.AppBackButton
+import com.remembergo.app.utils.SessionManager
+import com.remembergo.app.viewmodel.IntegrantesViewModel
+import com.remembergo.app.viewmodel.IntegrantesViewModelFactory
 import java.time.Instant
 import kotlin.time.Duration
 
@@ -119,7 +119,7 @@ fun ParticipantesScreen(
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
-                        text = context.getString(com.example.app.R.string.participants_empty),
+                        text = context.getString(com.remembergo.app.R.string.participants_empty),
                         style = MaterialTheme.typography.bodyLarge,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -166,7 +166,7 @@ fun ParticipantesTopBar(
                     overflow = TextOverflow.Ellipsis
                 )
                 Text(
-                    text = context.getString(com.example.app.R.string.participants_count, totalIntegrantes),
+                    text = context.getString(com.remembergo.app.R.string.participants_count, totalIntegrantes),
                     fontSize = 13.sp,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -238,7 +238,7 @@ fun ParticipanteItem(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = if (isCurrentUser) context.getString(com.example.app.R.string.you) else integrante.nombre_completo,
+                    text = if (isCurrentUser) context.getString(com.remembergo.app.R.string.you) else integrante.nombre_completo,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Medium,
                     color = MaterialTheme.colorScheme.onSurface
@@ -251,7 +251,7 @@ fun ParticipanteItem(
                         color = MaterialTheme.colorScheme.primary.copy(alpha = 0.1f)
                     ) {
                         Text(
-                            text = context.getString(com.example.app.R.string.role_creator),
+                            text = context.getString(com.remembergo.app.R.string.role_creator),
                             fontSize = 11.sp,
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.primary,
@@ -269,9 +269,9 @@ fun ParticipanteItem(
                 // Rol del usuario
                 Text(
                     text = when (integrante.rol) {
-                        "admin" -> context.getString(com.example.app.R.string.role_admin)
-                        "moderador" -> context.getString(com.example.app.R.string.role_moderator)
-                        else -> context.getString(com.example.app.R.string.role_member)
+                        "admin" -> context.getString(com.remembergo.app.R.string.role_admin)
+                        "moderador" -> context.getString(com.remembergo.app.R.string.role_moderator)
+                        else -> context.getString(com.remembergo.app.R.string.role_member)
                     },
                     fontSize = 13.sp,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
@@ -281,7 +281,7 @@ fun ParticipanteItem(
                 if (!integrante.activo) {
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
-                        text = context.getString(com.example.app.R.string.status_inactive),
+                        text = context.getString(com.remembergo.app.R.string.status_inactive),
                         fontSize = 13.sp,
                         color = MaterialTheme.colorScheme.error
                     )

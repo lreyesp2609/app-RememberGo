@@ -1,4 +1,4 @@
-package com.example.app.receivers
+package com.remembergo.app.receivers
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -6,8 +6,8 @@ import android.content.Intent
 import android.util.Log
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.app.RemoteInput
-import com.example.app.utils.SessionManager
-import com.example.app.websocket.WebSocketManager
+import com.remembergo.app.utils.SessionManager
+import com.remembergo.app.websocket.WebSocketManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -74,7 +74,7 @@ class NotificationReplyReceiver : BroadcastReceiver() {
                     Log.w(TAG, "⚠️ WebSocket no conectado, conectando...")
 
                     // Conectar WebSocket si no está conectado
-                    val baseUrl = com.example.app.BuildConfig.BASE_URL
+                    val baseUrl = com.remembergo.app.BuildConfig.BASE_URL
                     WebSocketManager.connectGlobal(baseUrl, accessToken)
 
                     // Esperar un momento para que se establezca la conexión

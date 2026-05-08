@@ -1,4 +1,4 @@
-package com.example.app.screen.recordatorios.steps
+package com.remembergo.app.screen.recordatorios.steps
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -24,10 +24,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.app.screen.components.AppBackButton
-import com.example.app.screen.components.AppButton
-import com.example.app.screen.mapa.MapControlButton
-import com.example.app.screen.rutas.components.CompactLocationCard
+import com.remembergo.app.screen.components.AppBackButton
+import com.remembergo.app.screen.components.AppButton
+import com.remembergo.app.screen.mapa.MapControlButton
+import com.remembergo.app.screen.rutas.components.CompactLocationCard
 
 @Composable
 fun Step1SelectLocation(

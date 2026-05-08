@@ -1,14 +1,14 @@
-package com.example.app.viewmodel
+package com.remembergo.app.viewmodel
 
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.app.models.IntegranteGrupo
-import com.example.app.network.RetrofitClient
-import com.example.app.repository.GrupoRepository
-import com.example.app.utils.SessionManager
+import com.remembergo.app.models.IntegranteGrupo
+import com.remembergo.app.network.RetrofitClient
+import com.remembergo.app.repository.GrupoRepository
+import com.remembergo.app.utils.SessionManager
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -46,7 +46,7 @@ class IntegrantesViewModel(
                 Log.d("IntegrantesVM", "🔑 Token obtenido: ${token?.take(20)}...")
 
                 if (token.isNullOrEmpty()) {
-                    _error.value = context.getString(com.example.app.R.string.error_no_active_session)
+                    _error.value = context.getString(com.remembergo.app.R.string.error_no_active_session)
                     Log.e("IntegrantesVM", "❌ No se encontró token de acceso")
                     _isLoading.value = false
                     return@launch
@@ -63,19 +63,19 @@ class IntegrantesViewModel(
                         _totalIntegrantes.value = data.total_integrantes
                         Log.d("IntegrantesVM", "✅ Cargados ${data.total_integrantes} integrantes")
                     } ?: run {
-                        _error.value = context.getString(com.example.app.R.string.error_no_data_received)
+                        _error.value = context.getString(com.remembergo.app.R.string.error_no_data_received)
                     }
                 } else {
                     val errorBody = response.errorBody()?.string()
                     _error.value = when (response.code()) {
-                        403 -> context.getString(com.example.app.R.string.error_no_permission_integrantes)
-                        404 -> context.getString(com.example.app.R.string.error_group_not_found)
-                        else -> context.getString(com.example.app.R.string.error_loading_integrantes, response.code())
+                        403 -> context.getString(com.remembergo.app.R.string.error_no_permission_integrantes)
+                        404 -> context.getString(com.remembergo.app.R.string.error_group_not_found)
+                        else -> context.getString(com.remembergo.app.R.string.error_loading_integrantes, response.code())
                     }
                     Log.e("IntegrantesVM", "❌ Error: ${response.code()} - $errorBody")
                 }
             } catch (e: Exception) {
-                _error.value = context.getString(com.example.app.R.string.error_connection_integrantes, e.localizedMessage)
+                _error.value = context.getString(com.remembergo.app.R.string.error_connection_integrantes, e.localizedMessage)
                 Log.e("IntegrantesVM", "❌ Excepción: ${e.message}", e)
             } finally {
                 _isLoading.value = false

@@ -1,12 +1,12 @@
-package com.example.app.repository
+package com.remembergo.app.repository
 
 import android.util.Log
-import com.example.app.models.EstadisticasResponse
-import com.example.app.models.FinalizarRutaRequest
-import com.example.app.models.FinalizarRutaResponse
-import com.example.app.models.PuntoGPS
-import com.example.app.models.RutaUsuario
-import com.example.app.network.RetrofitClient
+import com.remembergo.app.models.EstadisticasResponse
+import com.remembergo.app.models.FinalizarRutaRequest
+import com.remembergo.app.models.FinalizarRutaResponse
+import com.remembergo.app.models.PuntoGPS
+import com.remembergo.app.models.RutaUsuario
+import com.remembergo.app.network.RetrofitClient
 import retrofit2.HttpException
 import java.io.IOException
 

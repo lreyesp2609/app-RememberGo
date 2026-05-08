@@ -1,4 +1,4 @@
-package com.example.app.screen.home.components
+package com.remembergo.app.screen.home.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -18,8 +18,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.res.stringResource
-import com.example.app.R
-import com.example.app.models.User
+import com.remembergo.app.R
+import com.remembergo.app.models.User
 
 @Composable
 fun UserWelcomeContent(userState: Any?) {

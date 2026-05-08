@@ -1,4 +1,4 @@
-package com.example.app.screen.rutas.components
+package com.remembergo.app.screen.rutas.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -19,9 +19,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.res.stringResource
-import com.example.app.R
-import com.example.app.models.RouteAlternative
-import com.example.app.models.ZonaPublicaDetectada
+import com.remembergo.app.R
+import com.remembergo.app.models.RouteAlternative
+import com.remembergo.app.models.ZonaPublicaDetectada
 import kotlinx.coroutines.delay
 import kotlin.math.roundToInt
 

@@ -1,10 +1,10 @@
-package com.example.app.network
+package com.remembergo.app.network
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.app.models.ReminderEntity
+import com.remembergo.app.models.ReminderEntity
 
 @Database(entities = [ReminderEntity::class], version = 2)
 abstract class AppDatabase : RoomDatabase() {

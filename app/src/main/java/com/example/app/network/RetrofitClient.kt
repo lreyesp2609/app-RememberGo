@@ -1,4 +1,4 @@
-package com.example.app.network
+package com.remembergo.app.network
 
 import android.content.Context
 import okhttp3.OkHttpClient
@@ -8,8 +8,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
-import com.example.app.BuildConfig
-import com.example.app.utils.DaysTypeAdapter
+import com.remembergo.app.BuildConfig
+import com.remembergo.app.utils.DaysTypeAdapter
 import java.util.concurrent.TimeUnit
 
 object RetrofitClient {

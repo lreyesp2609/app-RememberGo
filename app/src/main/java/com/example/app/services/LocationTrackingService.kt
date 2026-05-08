@@ -1,8 +1,9 @@
-package com.example.app.services
+package com.remembergo.app.services
 
 import android.app.*
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ServiceInfo
 import android.location.Location
 import android.os.Build
 import android.os.Handler
@@ -10,8 +11,8 @@ import android.os.IBinder
 import android.os.Looper
 import android.util.Log
 import androidx.core.app.NotificationCompat
-import com.example.app.BuildConfig
-import com.example.app.utils.SessionManager
+import com.remembergo.app.BuildConfig
+import com.remembergo.app.utils.SessionManager
 import com.google.android.gms.location.*
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -24,7 +25,7 @@ import java.util.concurrent.TimeUnit
 class LocationTrackingService : Service() {
 
     companion object {
-        private const val TAG = "📍LocationTrackingService"
+        private const val TAG = "LocationTrackingService"
         private const val NOTIFICATION_ID = 1001
         private const val CHANNEL_ID = "location_tracking_channel"
         private const val UPDATE_INTERVAL = 5000L
@@ -178,7 +179,15 @@ class LocationTrackingService : Service() {
 
         // Iniciar foreground si es el primer grupo
         if (activeGroups.size == 1) {
-            startForeground(NOTIFICATION_ID, createNotification())
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                startForeground(
+                    NOTIFICATION_ID,
+                    createNotification(),
+                    ServiceInfo.FOREGROUND_SERVICE_TYPE_LOCATION
+                )
+            } else {
+                startForeground(NOTIFICATION_ID, createNotification())
+            }
         } else {
             updateNotification()
         }
@@ -353,9 +362,9 @@ class LocationTrackingService : Service() {
                 Looper.getMainLooper()
             )
             locationUpdatesStarted = true
-            Log.d(TAG, "✅ Actualizaciones GPS iniciadas")
+            Log.d(TAG, "Actualizaciones GPS iniciadas")
         } catch (e: SecurityException) {
-            Log.e(TAG, "❌ Sin permisos de ubicación: ${e.message}")
+            Log.e(TAG, "Sin permisos de ubicación: ${e.message}")
         }
     }
 

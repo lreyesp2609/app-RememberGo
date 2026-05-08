@@ -1,4 +1,4 @@
-package com.example.app.models
+package com.remembergo.app.models
 
 import android.util.Log
 import com.google.gson.annotations.SerializedName

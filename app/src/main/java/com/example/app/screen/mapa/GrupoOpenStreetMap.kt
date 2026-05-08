@@ -1,4 +1,4 @@
-package com.example.app.screen.mapa
+package com.remembergo.app.screen.mapa
 
 import android.content.Context
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,12 +14,12 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
 import android.util.Log
-import com.example.app.R
-import com.example.app.models.MiembroUbicacion
-import com.example.app.screen.grupos.components.MarkerColors
-import com.example.app.screen.grupos.components.UserMarker
-import com.example.app.screen.grupos.components.UserMarkerOverlay
-import com.example.app.screen.grupos.components.getInitial
+import com.remembergo.app.R
+import com.remembergo.app.models.MiembroUbicacion
+import com.remembergo.app.screen.grupos.components.MarkerColors
+import com.remembergo.app.screen.grupos.components.UserMarker
+import com.remembergo.app.screen.grupos.components.UserMarkerOverlay
+import com.remembergo.app.screen.grupos.components.getInitial
 import androidx.compose.ui.res.stringResource
 
 /**

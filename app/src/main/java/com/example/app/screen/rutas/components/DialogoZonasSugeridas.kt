@@ -1,4 +1,4 @@
-package com.example.app.screen.rutas.components
+package com.remembergo.app.screen.rutas.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -42,9 +42,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.app.R
-import com.example.app.models.ZonaSugerida
-import com.example.app.ui.theme.DangerLevelColors
+import com.remembergo.app.R
+import com.remembergo.app.models.ZonaSugerida
+import com.remembergo.app.ui.theme.DangerLevelColors
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

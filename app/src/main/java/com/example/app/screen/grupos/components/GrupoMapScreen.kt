@@ -1,4 +1,4 @@
-package com.example.app.screen.grupos.components
+package com.remembergo.app.screen.grupos.components
 
 import android.util.Log
 import androidx.compose.foundation.background
@@ -34,19 +34,19 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.example.app.BuildConfig
-import com.example.app.screen.components.AppBackButton
-import com.example.app.screen.mapa.GetCurrentLocation
-import com.example.app.screen.mapa.GpsEnableButton
-import com.example.app.screen.mapa.GrupoOpenStreetMap
-import com.example.app.screen.mapa.LocationTracker
-import com.example.app.screen.mapa.MapControlButton
-import com.example.app.screen.mapa.OpenStreetMap
-import com.example.app.services.LocationTrackingService
-import com.example.app.utils.LocationManager
-import com.example.app.utils.SessionManager
-import com.example.app.viewmodel.LocationGrupoViewModel
-import com.example.app.websocket.WebSocketLocationManager
+import com.remembergo.app.BuildConfig
+import com.remembergo.app.screen.components.AppBackButton
+import com.remembergo.app.screen.mapa.GetCurrentLocation
+import com.remembergo.app.screen.mapa.GpsEnableButton
+import com.remembergo.app.screen.mapa.GrupoOpenStreetMap
+import com.remembergo.app.screen.mapa.LocationTracker
+import com.remembergo.app.screen.mapa.MapControlButton
+import com.remembergo.app.screen.mapa.OpenStreetMap
+import com.remembergo.app.services.LocationTrackingService
+import com.remembergo.app.utils.LocationManager
+import com.remembergo.app.utils.SessionManager
+import com.remembergo.app.viewmodel.LocationGrupoViewModel
+import com.remembergo.app.websocket.WebSocketLocationManager
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import okhttp3.Response
@@ -67,7 +67,7 @@ fun GrupoMapScreen(
     val sessionManager = SessionManager.getInstance(context)
     val currentUser = sessionManager.getUser()
     val currentUserId = currentUser?.id ?: 0
-    val currentUserName = currentUser?.nombre ?: context.getString(com.example.app.R.string.map_you)
+    val currentUserName = currentUser?.nombre ?: context.getString(com.remembergo.app.R.string.map_you)
 
     val locationViewModel: LocationGrupoViewModel = viewModel(
         factory = object : ViewModelProvider.Factory {
@@ -90,7 +90,7 @@ fun GrupoMapScreen(
 
     LaunchedEffect(grupoId) {
         Log.d("ReminderMapScreen", "🚀 INICIANDO RASTREO AUTOMÁTICO")
-        val grupoNombre = context.getString(com.example.app.R.string.map_group_name_prefix, grupoId)
+        val grupoNombre = context.getString(com.remembergo.app.R.string.map_group_name_prefix, grupoId)
         LocationTrackingService.startTracking(
             context = context,
             grupoId = grupoId,
@@ -176,7 +176,7 @@ fun GrupoMapScreen(
                     CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
-                        text = context.getString(com.example.app.R.string.map_getting_location),
+                        text = context.getString(com.remembergo.app.R.string.map_getting_location),
                         color = MaterialTheme.colorScheme.onBackground
                     )
                 }

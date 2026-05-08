@@ -1,10 +1,10 @@
-package com.example.app.network
+package com.remembergo.app.network
 
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import com.example.app.repository.AuthRepository
-import com.example.app.utils.SessionManager
+import com.remembergo.app.repository.AuthRepository
+import com.remembergo.app.utils.SessionManager
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Response
@@ -184,7 +184,7 @@ class AuthInterceptor(private val context: Context) : Interceptor {
 
                 // ✅ Enviar broadcast para navegar a login
                 try {
-                    val intent = Intent("com.example.app.FORCE_LOGOUT")
+                    val intent = Intent("com.remembergo.app.FORCE_LOGOUT")
                     context.sendBroadcast(intent)
                     Log.d(TAG, "📡 Broadcast de logout enviado")
                 } catch (e: Exception) {

@@ -1,4 +1,4 @@
-package com.example.app.screen.recordatorios.steps
+package com.remembergo.app.screen.recordatorios.steps
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -28,8 +28,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.app.screen.components.AppButton
-import com.example.app.screen.components.AppTextField
+import com.remembergo.app.screen.components.AppButton
+import com.remembergo.app.screen.components.AppTextField
 
 @Composable
 fun Step2BasicInfo(

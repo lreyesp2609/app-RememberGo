@@ -1,4 +1,4 @@
-package com.example.app.models
+package com.remembergo.app.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

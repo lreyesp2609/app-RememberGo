@@ -1,4 +1,4 @@
-package com.example.app.screen.mapa
+package com.remembergo.app.screen.mapa
 
 import android.content.Context
 import android.graphics.drawable.ShapeDrawable
@@ -13,18 +13,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
-import com.example.app.models.UbicacionUsuarioResponse
+import com.remembergo.app.models.UbicacionUsuarioResponse
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.overlay.Marker
 import org.osmdroid.views.overlay.Polyline
 import org.osmdroid.config.Configuration
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
-import com.example.app.R
-import com.example.app.models.ZonaPeligrosaResponse
-import com.example.app.ui.theme.DangerLevelColors
-import com.example.app.viewmodel.MapViewModel
-import com.example.app.viewmodel.decodePolyline
+import com.remembergo.app.R
+import com.remembergo.app.models.ZonaPeligrosaResponse
+import com.remembergo.app.ui.theme.DangerLevelColors
+import com.remembergo.app.viewmodel.MapViewModel
+import com.remembergo.app.viewmodel.decodePolyline
 import org.osmdroid.views.overlay.Polygon
 
 @Composable

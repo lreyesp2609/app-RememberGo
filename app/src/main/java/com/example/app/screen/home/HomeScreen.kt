@@ -1,4 +1,4 @@
-package com.example.app.screen.home
+package com.remembergo.app.screen.home
 
 import android.content.Context
 import android.content.Intent
@@ -62,15 +62,15 @@ import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.compose.ui.res.stringResource
-import com.example.app.R
-import com.example.app.screen.config.SettingsScreen
-import com.example.app.screen.home.components.HomeTabContent
-import com.example.app.screen.home.components.PlaceholderTab
-import com.example.app.screen.recordatorios.RemindersScreen
-import com.example.app.screen.rutas.AlternateRoutesScreen
-import com.example.app.ui.theme.getBackgroundGradient
-import com.example.app.utils.NotificationHelper
-import com.example.app.viewmodel.AuthViewModel
+import com.remembergo.app.R
+import com.remembergo.app.screen.config.SettingsScreen
+import com.remembergo.app.screen.home.components.HomeTabContent
+import com.remembergo.app.screen.home.components.PlaceholderTab
+import com.remembergo.app.screen.recordatorios.RemindersScreen
+import com.remembergo.app.screen.rutas.AlternateRoutesScreen
+import com.remembergo.app.ui.theme.getBackgroundGradient
+import com.remembergo.app.utils.NotificationHelper
+import com.remembergo.app.viewmodel.AuthViewModel
 import kotlinx.coroutines.delay
 import android.net.Uri
 import android.os.PowerManager
@@ -79,12 +79,12 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.rememberCoroutineScope
-import com.example.app.screen.grupos.CollaborativeGroupsScreen
-import com.example.app.screen.mapa.GetCurrentLocation
-import com.example.app.screen.mapa.GpsEnableButton
-import com.example.app.services.UnifiedLocationService
-import com.example.app.utils.LocationManager
-import com.example.app.viewmodel.NotificationViewModel
+import com.remembergo.app.screen.grupos.CollaborativeGroupsScreen
+import com.remembergo.app.screen.mapa.GetCurrentLocation
+import com.remembergo.app.screen.mapa.GpsEnableButton
+import com.remembergo.app.services.UnifiedLocationService
+import com.remembergo.app.utils.LocationManager
+import com.remembergo.app.viewmodel.NotificationViewModel
 import kotlinx.coroutines.launch
 
 @Composable

@@ -1,7 +1,7 @@
-package com.example.app.repository
+package com.remembergo.app.repository
 
-import com.example.app.models.ReminderEntity
-import com.example.app.network.ReminderDao
+import com.remembergo.app.models.ReminderEntity
+import com.remembergo.app.network.ReminderDao
 
 class ReminderRepository(private val dao: ReminderDao) {
 

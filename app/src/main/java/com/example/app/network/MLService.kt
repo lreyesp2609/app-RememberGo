@@ -1,6 +1,6 @@
-package com.example.app.network
+package com.remembergo.app.network
 
-import com.example.app.models.*
+import com.remembergo.app.models.*
 import retrofit2.http.*
 
 interface MLService {

@@ -1,11 +1,11 @@
-package com.example.app.repository
+package com.remembergo.app.repository
 
-import com.example.app.models.GrupoCreate
-import com.example.app.models.GrupoDeleteResponse
-import com.example.app.models.GrupoResponse
-import com.example.app.models.GrupoResponseSalir
-import com.example.app.models.IntegrantesResponse
-import com.example.app.network.GrupoService
+import com.remembergo.app.models.GrupoCreate
+import com.remembergo.app.models.GrupoDeleteResponse
+import com.remembergo.app.models.GrupoResponse
+import com.remembergo.app.models.GrupoResponseSalir
+import com.remembergo.app.models.IntegrantesResponse
+import com.remembergo.app.network.GrupoService
 import retrofit2.Response
 
 class GrupoRepository(private val grupoService: GrupoService) {

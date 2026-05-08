@@ -1,6 +1,6 @@
-package com.example.app.network
+package com.remembergo.app.network
 
-import com.example.app.models.NominatimApiService
+import com.remembergo.app.models.NominatimApiService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

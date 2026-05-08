@@ -1,4 +1,4 @@
-package com.example.app.screen.auth
+package com.remembergo.app.screen.auth
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
@@ -29,13 +29,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.compose.ui.res.stringResource
-import com.example.app.R
-import com.example.app.screen.components.AppBackButton
-import com.example.app.screen.components.AppButton
-import com.example.app.screen.components.AppTextField
-import com.example.app.ui.theme.getBackgroundGradient
-import com.example.app.viewmodel.AuthViewModel
-import com.example.app.viewmodel.NotificationViewModel
+import com.remembergo.app.R
+import com.remembergo.app.screen.components.AppBackButton
+import com.remembergo.app.screen.components.AppButton
+import com.remembergo.app.screen.components.AppTextField
+import com.remembergo.app.ui.theme.getBackgroundGradient
+import com.remembergo.app.viewmodel.AuthViewModel
+import com.remembergo.app.viewmodel.NotificationViewModel
 import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalMaterial3Api::class)

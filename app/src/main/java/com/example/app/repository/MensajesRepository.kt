@@ -1,12 +1,12 @@
-package com.example.app.repository
+package com.remembergo.app.repository
 
 
 import android.content.Context
-import com.example.app.models.MarcarLeidoResponse
-import com.example.app.models.MensajeResponse
-import com.example.app.network.MensajesApiService
-import com.example.app.network.RetrofitClient
-import com.example.app.utils.SessionManager
+import com.remembergo.app.models.MarcarLeidoResponse
+import com.remembergo.app.models.MensajeResponse
+import com.remembergo.app.network.MensajesApiService
+import com.remembergo.app.network.RetrofitClient
+import com.remembergo.app.utils.SessionManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

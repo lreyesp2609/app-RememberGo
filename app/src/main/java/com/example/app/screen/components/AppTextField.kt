@@ -1,4 +1,4 @@
-package com.example.app.screen.components
+package com.remembergo.app.screen.components
 
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons

@@ -1,4 +1,4 @@
-package com.example.app.screen.components
+package com.remembergo.app.screen.components
 
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.layout.Box

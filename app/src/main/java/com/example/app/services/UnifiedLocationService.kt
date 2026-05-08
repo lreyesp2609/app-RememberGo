@@ -1,4 +1,4 @@
-package com.example.app.services
+package com.remembergo.app.services
 
 import android.Manifest
 import android.app.*
@@ -12,11 +12,11 @@ import android.os.PowerManager
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
-import com.example.app.MainActivity
-import com.example.app.models.ReminderEntity
-import com.example.app.network.AppDatabase
-import com.example.app.utils.NotificationHelper
-import com.example.app.repository.ReminderRepository
+import com.remembergo.app.MainActivity
+import com.remembergo.app.models.ReminderEntity
+import com.remembergo.app.network.AppDatabase
+import com.remembergo.app.utils.NotificationHelper
+import com.remembergo.app.repository.ReminderRepository
 import com.google.android.gms.location.*
 import kotlinx.coroutines.*
 import kotlin.random.Random
@@ -24,21 +24,22 @@ import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.Service
+import android.content.pm.ServiceInfo
 import android.location.Location
 import android.media.Ringtone
 import android.media.RingtoneManager
 import android.os.Handler
-import com.example.app.network.RetrofitClient
-import com.example.app.utils.SessionManager
+import com.remembergo.app.network.RetrofitClient
+import com.remembergo.app.utils.SessionManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.time.Instant
 import java.util.*
-import com.example.app.network.VerificarUbicacionRequest
-import com.example.app.network.VerificarUbicacionResponse
-import com.example.app.network.ZonaPeligrosaDetectada
+import com.remembergo.app.network.VerificarUbicacionRequest
+import com.remembergo.app.network.VerificarUbicacionResponse
+import com.remembergo.app.network.ZonaPeligrosaDetectada
 
 class UnifiedLocationService : Service() {
 
@@ -107,7 +108,15 @@ class UnifiedLocationService : Service() {
 
         // Configurar notificación y ubicación
         createNotificationChannel()
-        startForeground(NOTIFICATION_ID, createForegroundNotification())
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            startForeground(
+                NOTIFICATION_ID,
+                createForegroundNotification(),
+                ServiceInfo.FOREGROUND_SERVICE_TYPE_LOCATION
+            )
+        } else {
+            startForeground(NOTIFICATION_ID, createForegroundNotification())
+        }
         setupLocationCallback()
         startLocationUpdates()
 

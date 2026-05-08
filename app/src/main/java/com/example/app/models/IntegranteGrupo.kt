@@ -1,4 +1,4 @@
-package com.example.app.models
+package com.remembergo.app.models
 
 data class IntegranteGrupo(
     val usuario_id: Int,

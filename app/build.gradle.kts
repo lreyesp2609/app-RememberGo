@@ -10,11 +10,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.app"
+    namespace = "com.remembergo.app"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.app"
+        applicationId = "com.remembergo.app"
         minSdk = 24
         targetSdk = 36
         versionCode = 1

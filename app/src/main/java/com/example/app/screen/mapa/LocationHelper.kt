@@ -1,4 +1,4 @@
-package com.example.app.screen.mapa
+package com.remembergo.app.screen.mapa
 
 import android.Manifest
 import android.app.Activity
@@ -52,7 +52,7 @@ import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import kotlinx.coroutines.delay
 import androidx.compose.ui.res.stringResource
-import com.example.app.R
+import com.remembergo.app.R
 
 @Composable
 fun GetCurrentLocation(

@@ -1,4 +1,4 @@
-package com.example.app.screen.mapa
+package com.remembergo.app.screen.mapa
 
 import android.content.Context
 import android.graphics.Canvas
@@ -18,12 +18,12 @@ import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.Marker
 import org.osmdroid.views.overlay.Overlay
-import com.example.app.R
-import com.example.app.models.Feature
-import com.example.app.models.ZonaGuardada
-import com.example.app.models.getDisplayName
-import com.example.app.screen.recordatorios.components.getIconResource
-import com.example.app.ui.theme.DangerLevelColors
+import com.remembergo.app.R
+import com.remembergo.app.models.Feature
+import com.remembergo.app.models.ZonaGuardada
+import com.remembergo.app.models.getDisplayName
+import com.remembergo.app.screen.recordatorios.components.getIconResource
+import com.remembergo.app.ui.theme.DangerLevelColors
 import org.osmdroid.events.MapEventsReceiver
 import org.osmdroid.events.MapListener
 import org.osmdroid.events.ScrollEvent

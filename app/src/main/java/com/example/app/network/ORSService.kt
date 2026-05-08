@@ -1,9 +1,9 @@
-package com.example.app.network
+package com.remembergo.app.network
 
-import com.example.app.models.DirectionsRequest
-import com.example.app.models.DirectionsResponse
-import com.example.app.models.PoisRequest
-import com.example.app.models.PoisResponse
+import com.remembergo.app.models.DirectionsRequest
+import com.remembergo.app.models.DirectionsResponse
+import com.remembergo.app.models.PoisRequest
+import com.remembergo.app.models.PoisResponse
 import retrofit2.http.Body
 import retrofit2.http.Headers
 import retrofit2.http.POST

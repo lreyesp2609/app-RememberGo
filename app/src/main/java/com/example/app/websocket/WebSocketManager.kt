@@ -1,4 +1,4 @@
-package com.example.app.websocket
+package com.remembergo.app.websocket
 
 import android.util.Log
 import com.google.gson.Gson

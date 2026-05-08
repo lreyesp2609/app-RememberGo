@@ -1,4 +1,4 @@
-package com.example.app.screen.recordatorios.components
+package com.remembergo.app.screen.recordatorios.components
 
 import android.util.Log
 import androidx.compose.foundation.layout.Box
@@ -20,13 +20,13 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.example.app.R
-import com.example.app.models.toReminder
-import com.example.app.network.NominatimClient
-import com.example.app.screen.mapa.OpenStreetMap
-import com.example.app.screen.recordatorios.steps.ReminderStepsContent
-import com.example.app.viewmodel.NotificationViewModel
-import com.example.app.viewmodel.ReminderViewModel
+import com.remembergo.app.R
+import com.remembergo.app.models.toReminder
+import com.remembergo.app.network.NominatimClient
+import com.remembergo.app.screen.mapa.OpenStreetMap
+import com.remembergo.app.screen.recordatorios.steps.ReminderStepsContent
+import com.remembergo.app.viewmodel.NotificationViewModel
+import com.remembergo.app.viewmodel.ReminderViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

@@ -1,10 +1,10 @@
-package com.example.app.network
+package com.remembergo.app.network
 
-import com.example.app.models.RutaUsuario
-import com.example.app.models.ValidarRutasRequest
-import com.example.app.models.ValidarRutasResponse
-import com.example.app.models.ZonaPeligrosaCreate
-import com.example.app.models.ZonaPeligrosaResponse
+import com.remembergo.app.models.RutaUsuario
+import com.remembergo.app.models.ValidarRutasRequest
+import com.remembergo.app.models.ValidarRutasResponse
+import com.remembergo.app.models.ZonaPeligrosaCreate
+import com.remembergo.app.models.ZonaPeligrosaResponse
 import retrofit2.Response
 import retrofit2.http.*
 

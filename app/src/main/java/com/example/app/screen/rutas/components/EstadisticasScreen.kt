@@ -1,4 +1,4 @@
-package com.example.app.screen.rutas.components
+package com.remembergo.app.screen.rutas.components
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Spring
@@ -28,10 +28,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.app.R
-import com.example.app.models.EstadisticasResponse
-import com.example.app.repository.RutasRepository
-import com.example.app.ui.theme.getBackgroundGradient
+import com.remembergo.app.R
+import com.remembergo.app.models.EstadisticasResponse
+import com.remembergo.app.repository.RutasRepository
+import com.remembergo.app.ui.theme.getBackgroundGradient
 import kotlinx.coroutines.launch
 
 @Composable

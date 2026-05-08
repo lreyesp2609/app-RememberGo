@@ -1,11 +1,11 @@
-package com.example.app.screen.recordatorios.steps
+package com.remembergo.app.screen.recordatorios.steps
 
 import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.example.app.viewmodel.NotificationViewModel
-import com.example.app.viewmodel.ReminderViewModel
+import com.remembergo.app.viewmodel.NotificationViewModel
+import com.remembergo.app.viewmodel.ReminderViewModel
 
 @Composable
 fun ReminderStepsContent(

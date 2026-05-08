@@ -1,4 +1,4 @@
-package com.example.app
+package com.remembergo.app
 
 import android.Manifest
 import android.content.Intent
@@ -25,14 +25,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.app.services.UnifiedLocationService
-import com.example.app.ui.theme.AppTheme
-import com.example.app.utils.NotificationHelper
-import com.example.app.utils.SessionManager
-import com.example.app.viewmodel.AuthViewModel
-import com.example.app.viewmodel.MapViewModel
-import com.example.app.viewmodel.MapViewModelFactory
-import com.example.app.websocket.testWebSocketPing
+import com.remembergo.app.services.UnifiedLocationService
+import com.remembergo.app.ui.theme.AppTheme
+import com.remembergo.app.utils.NotificationHelper
+import com.remembergo.app.utils.SessionManager
+import com.remembergo.app.viewmodel.AuthViewModel
+import com.remembergo.app.viewmodel.MapViewModel
+import com.remembergo.app.viewmodel.MapViewModelFactory
+import com.remembergo.app.websocket.testWebSocketPing
 import kotlinx.coroutines.delay
 class MainActivity : AppCompatActivity() {
 

@@ -1,8 +1,8 @@
-package com.example.app.repository
+package com.remembergo.app.repository
 
-import com.example.app.models.UbicacionUsuarioCreate
-import com.example.app.models.UbicacionUsuarioResponse
-import com.example.app.network.RetrofitClient
+import com.remembergo.app.models.UbicacionUsuarioCreate
+import com.remembergo.app.models.UbicacionUsuarioResponse
+import com.remembergo.app.network.RetrofitClient
 import retrofit2.HttpException
 import java.io.IOException
 

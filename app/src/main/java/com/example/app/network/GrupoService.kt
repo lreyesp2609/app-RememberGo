@@ -1,10 +1,10 @@
-package com.example.app.network
+package com.remembergo.app.network
 
-import com.example.app.models.GrupoCreate
-import com.example.app.models.GrupoDeleteResponse
-import com.example.app.models.GrupoResponse
-import com.example.app.models.GrupoResponseSalir
-import com.example.app.models.IntegrantesResponse
+import com.remembergo.app.models.GrupoCreate
+import com.remembergo.app.models.GrupoDeleteResponse
+import com.remembergo.app.models.GrupoResponse
+import com.remembergo.app.models.GrupoResponseSalir
+import com.remembergo.app.models.IntegrantesResponse
 import com.google.gson.JsonObject
 import retrofit2.Response
 import retrofit2.http.Body

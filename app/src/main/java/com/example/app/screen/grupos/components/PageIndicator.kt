@@ -1,4 +1,4 @@
-package com.example.app.screen.grupos.components
+package com.remembergo.app.screen.grupos.components
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
@@ -20,7 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.example.app.R
+import com.remembergo.app.R
 
 @Composable
 fun PageIndicator(

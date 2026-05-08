@@ -1,4 +1,4 @@
-package com.example.app.models
+package com.remembergo.app.models
 
 import retrofit2.http.GET
 import retrofit2.http.Query

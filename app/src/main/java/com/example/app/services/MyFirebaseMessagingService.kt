@@ -1,4 +1,4 @@
-package com.example.app.services
+package com.remembergo.app.services
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -14,11 +14,11 @@ import androidx.core.app.Person
 import androidx.core.app.RemoteInput
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import com.example.app.MainActivity
-import com.example.app.R
-import com.example.app.network.RetrofitClient
-import com.example.app.receivers.NotificationReplyReceiver
-import com.example.app.utils.SessionManager
+import com.remembergo.app.MainActivity
+import com.remembergo.app.R
+import com.remembergo.app.network.RetrofitClient
+import com.remembergo.app.receivers.NotificationReplyReceiver
+import com.remembergo.app.utils.SessionManager
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

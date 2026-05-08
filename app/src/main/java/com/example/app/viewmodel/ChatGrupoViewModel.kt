@@ -1,17 +1,17 @@
-package com.example.app.viewmodel
+package com.remembergo.app.viewmodel
 
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.app.BuildConfig
-import com.example.app.models.EstadoMensaje
-import com.example.app.models.MensajeResponse
-import com.example.app.models.MensajeUI
-import com.example.app.network.ChatWebSocketListener
-import com.example.app.websocket.WebSocketManager
-import com.example.app.repository.MensajesRepository
-import com.example.app.utils.SessionManager
+import com.remembergo.app.BuildConfig
+import com.remembergo.app.models.EstadoMensaje
+import com.remembergo.app.models.MensajeResponse
+import com.remembergo.app.models.MensajeUI
+import com.remembergo.app.network.ChatWebSocketListener
+import com.remembergo.app.websocket.WebSocketManager
+import com.remembergo.app.repository.MensajesRepository
+import com.remembergo.app.utils.SessionManager
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import kotlinx.coroutines.flow.MutableStateFlow

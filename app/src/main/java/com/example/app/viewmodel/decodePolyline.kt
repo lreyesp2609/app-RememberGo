@@ -1,4 +1,4 @@
-package com.example.app.viewmodel
+package com.remembergo.app.viewmodel
 
 import org.osmdroid.util.GeoPoint
 

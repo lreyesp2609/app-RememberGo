@@ -1,4 +1,4 @@
-package com.example.app.utils
+package com.remembergo.app.utils
 
 import android.Manifest
 import android.content.Context

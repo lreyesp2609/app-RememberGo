@@ -1,8 +1,8 @@
-package com.example.app.ui.theme
+package com.remembergo.app.ui.theme
 
 import android.content.Context
 import androidx.compose.ui.graphics.Color
-import com.example.app.R
+import com.remembergo.app.R
 
 /**
  * Colores para los 3 niveles de peligro:

@@ -1,4 +1,4 @@
-package com.example.app.screen.config
+package com.remembergo.app.screen.config
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -16,10 +16,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.res.stringResource
-import com.example.app.R
-import com.example.app.models.User
-import com.example.app.screen.components.AppButton
-import com.example.app.screen.components.LanguageSelector
+import com.remembergo.app.R
+import com.remembergo.app.models.User
+import com.remembergo.app.screen.components.AppButton
+import com.remembergo.app.screen.components.LanguageSelector
 
 @Composable
 fun SettingsScreen(

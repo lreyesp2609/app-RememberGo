@@ -1,4 +1,4 @@
-package com.example.app.ui.theme
+package com.remembergo.app.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ColorScheme

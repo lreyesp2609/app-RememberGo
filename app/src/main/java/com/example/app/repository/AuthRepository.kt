@@ -1,9 +1,9 @@
-package com.example.app.repository
+package com.remembergo.app.repository
 
 import android.util.Log
-import com.example.app.models.LoginResponse
-import com.example.app.models.ProfileResponse
-import com.example.app.network.RetrofitClient
+import com.remembergo.app.models.LoginResponse
+import com.remembergo.app.models.ProfileResponse
+import com.remembergo.app.network.RetrofitClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException

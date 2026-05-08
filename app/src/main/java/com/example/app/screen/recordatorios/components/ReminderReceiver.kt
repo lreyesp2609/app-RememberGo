@@ -1,4 +1,4 @@
-package com.example.app.screen.recordatorios.components
+package com.remembergo.app.screen.recordatorios.components
 
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -11,10 +11,10 @@ import android.net.Uri
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
-import com.example.app.MainActivity
-import com.example.app.models.ReminderEntity
-import com.example.app.network.AppDatabase
-import com.example.app.utils.NotificationHelper
+import com.remembergo.app.MainActivity
+import com.remembergo.app.models.ReminderEntity
+import com.remembergo.app.network.AppDatabase
+import com.remembergo.app.utils.NotificationHelper
 import kotlin.random.Random
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

@@ -1,4 +1,4 @@
-package com.example.app.utils
+package com.remembergo.app.utils
 
 import com.google.gson.*
 import java.lang.reflect.Type

@@ -1,4 +1,4 @@
-package com.example.app.screen.mapa
+package com.remembergo.app.screen.mapa
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -24,8 +24,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.example.app.R
-import com.example.app.utils.getModeDisplayName
+import com.remembergo.app.R
+import com.remembergo.app.utils.getModeDisplayName
 
 @Composable
 fun RouteInfoCard(

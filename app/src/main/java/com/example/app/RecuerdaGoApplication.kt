@@ -1,12 +1,12 @@
-package com.example.app
+package com.remembergo.app
 
 import android.app.Application
 import android.util.Log
-import com.example.app.network.RetrofitClient
-import com.example.app.websocket.WebSocketLocationManager
-import com.example.app.websocket.WebSocketManager
-import com.example.app.utils.SessionManager
-import com.example.app.websocket.NotificationWebSocketManager
+import com.remembergo.app.network.RetrofitClient
+import com.remembergo.app.websocket.WebSocketLocationManager
+import com.remembergo.app.websocket.WebSocketManager
+import com.remembergo.app.utils.SessionManager
+import com.remembergo.app.websocket.NotificationWebSocketManager
 import com.google.gson.Gson
 
 class RecuerdaGoApplication : Application() {

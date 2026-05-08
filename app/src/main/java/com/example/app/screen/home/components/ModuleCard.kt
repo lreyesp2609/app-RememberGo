@@ -42,7 +42,7 @@ import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
 
 import androidx.compose.ui.res.stringResource
-import com.example.app.R
+import com.remembergo.app.R
 
 @Composable
 fun ModuleCard(

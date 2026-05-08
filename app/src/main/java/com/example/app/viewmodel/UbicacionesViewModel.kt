@@ -1,4 +1,4 @@
-package com.example.app.viewmodel
+package com.remembergo.app.viewmodel
 
 import android.content.Context
 import androidx.compose.runtime.getValue
@@ -6,9 +6,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.app.models.UbicacionUsuarioCreate
-import com.example.app.models.UbicacionUsuarioResponse
-import com.example.app.repository.UbicacionesRepository
+import com.remembergo.app.models.UbicacionUsuarioCreate
+import com.remembergo.app.models.UbicacionUsuarioResponse
+import com.remembergo.app.repository.UbicacionesRepository
 import kotlinx.coroutines.launch
 
 class UbicacionesViewModel(
@@ -48,16 +48,16 @@ class UbicacionesViewModel(
 
                     val error = when {
                         exception.message?.contains("LOCATION_NAME_ALREADY_EXISTS") == true ->
-                            context.getString(com.example.app.R.string.error_location_name_exists)
+                            context.getString(com.remembergo.app.R.string.error_location_name_exists)
 
                         exception.message?.contains("NETWORK_ERROR") == true ->
-                            context.getString(com.example.app.R.string.error_network_connection)
+                            context.getString(com.remembergo.app.R.string.error_network_connection)
 
                         exception.message?.contains("HTTP_ERROR") == true ->
-                            context.getString(com.example.app.R.string.error_server_communication)
+                            context.getString(com.remembergo.app.R.string.error_server_communication)
 
                         else ->
-                            context.getString(com.example.app.R.string.error_create_location)
+                            context.getString(com.remembergo.app.R.string.error_create_location)
                     }
 
                     callback(false, error)
@@ -78,7 +78,7 @@ class UbicacionesViewModel(
                 },
                 onFailure = {
                     isLoading = false
-                    errorMessage = context.getString(com.example.app.R.string.error_load_locations)
+                    errorMessage = context.getString(com.remembergo.app.R.string.error_load_locations)
                 }
             )
         }
@@ -96,7 +96,7 @@ class UbicacionesViewModel(
                 },
                 onFailure = {
                     isLoading = false
-                    errorMessage = context.getString(com.example.app.R.string.error_load_location_id)
+                    errorMessage = context.getString(com.remembergo.app.R.string.error_load_location_id)
                 }
             )
         }
@@ -114,20 +114,20 @@ class UbicacionesViewModel(
                     ubicaciones = ubicaciones.filter { it.id != id }
 
                     isLoading = false
-                    notificationViewModel.showSuccess(com.example.app.R.string.location_deleted_success_msg)
+                    notificationViewModel.showSuccess(com.remembergo.app.R.string.location_deleted_success_msg)
                 },
                 onFailure = { exception ->
                     isLoading = false
 
                     val error = when {
                         exception.message?.contains("NETWORK_ERROR") == true ->
-                            context.getString(com.example.app.R.string.error_network_connection)
+                            context.getString(com.remembergo.app.R.string.error_network_connection)
 
                         exception.message?.contains("HTTP_ERROR_404") == true ->
-                            context.getString(com.example.app.R.string.error_location_not_found)
+                            context.getString(com.remembergo.app.R.string.error_location_not_found)
 
                         else ->
-                            context.getString(com.example.app.R.string.error_delete_location)
+                            context.getString(com.remembergo.app.R.string.error_delete_location)
                     }
 
                     notificationViewModel.showError(error)

@@ -1,4 +1,4 @@
-package com.example.app.screen
+package com.remembergo.app.screen
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
@@ -12,8 +12,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.res.stringResource
-import com.example.app.R
-import com.example.app.ui.theme.AppColors
+import com.remembergo.app.R
+import com.remembergo.app.ui.theme.AppColors
 import kotlinx.coroutines.delay
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState

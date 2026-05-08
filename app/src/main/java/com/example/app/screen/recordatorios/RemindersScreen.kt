@@ -1,4 +1,4 @@
-package com.example.app.screen.recordatorios
+package com.remembergo.app.screen.recordatorios
 
 import android.media.RingtoneManager
 import android.net.Uri
@@ -34,13 +34,13 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.compose.ui.res.stringResource
-import com.example.app.R
-import com.example.app.models.Reminder
-import com.example.app.network.AppDatabase
-import com.example.app.screen.components.AppButton
-import com.example.app.repository.ReminderRepository
-import com.example.app.viewmodel.ReminderViewModel
-import com.example.app.viewmodel.ReminderViewModelFactory
+import com.remembergo.app.R
+import com.remembergo.app.models.Reminder
+import com.remembergo.app.network.AppDatabase
+import com.remembergo.app.screen.components.AppButton
+import com.remembergo.app.repository.ReminderRepository
+import com.remembergo.app.viewmodel.ReminderViewModel
+import com.remembergo.app.viewmodel.ReminderViewModelFactory
 import kotlinx.coroutines.delay
 
 @Composable

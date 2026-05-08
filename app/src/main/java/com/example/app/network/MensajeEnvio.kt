@@ -1,4 +1,4 @@
-package com.example.app.network
+package com.remembergo.app.network
 
 data class MensajeEnvioWrapper(
     val action: String = "mensaje",

@@ -1,4 +1,4 @@
-package com.example.app.screen.rutas.components
+package com.remembergo.app.screen.rutas.components
 
 import android.content.Context
 import android.util.Log
@@ -46,28 +46,28 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.example.app.models.RouteAlternative
-import com.example.app.models.UbicacionUsuarioCreate
-import com.example.app.models.ZonaGuardada
-import com.example.app.models.ZonaPeligrosaCreate
-import com.example.app.screen.mapa.GetCurrentLocation
-import com.example.app.screen.mapa.GpsEnableButton
-import com.example.app.screen.mapa.OpenStreetMap
-import com.example.app.network.NominatimClient
-import com.example.app.network.RetrofitClient
-import com.example.app.screen.components.AppBackButton
-import com.example.app.screen.components.AppButton
-import com.example.app.screen.components.AppTextField
-import com.example.app.screen.mapa.MapControlButton
-import com.example.app.ui.theme.SecurityColors
-import com.example.app.utils.DialogoCrearZonaPeligrosa
-import com.example.app.utils.LocationManager
-import com.example.app.utils.SessionManager
-import com.example.app.viewmodel.MapViewModel
-import com.example.app.viewmodel.MapViewModelFactory
-import com.example.app.viewmodel.NotificationViewModel
-import com.example.app.viewmodel.UbicacionesViewModel
-import com.example.app.viewmodel.UbicacionesViewModelFactory
+import com.remembergo.app.models.RouteAlternative
+import com.remembergo.app.models.UbicacionUsuarioCreate
+import com.remembergo.app.models.ZonaGuardada
+import com.remembergo.app.models.ZonaPeligrosaCreate
+import com.remembergo.app.screen.mapa.GetCurrentLocation
+import com.remembergo.app.screen.mapa.GpsEnableButton
+import com.remembergo.app.screen.mapa.OpenStreetMap
+import com.remembergo.app.network.NominatimClient
+import com.remembergo.app.network.RetrofitClient
+import com.remembergo.app.screen.components.AppBackButton
+import com.remembergo.app.screen.components.AppButton
+import com.remembergo.app.screen.components.AppTextField
+import com.remembergo.app.screen.mapa.MapControlButton
+import com.remembergo.app.ui.theme.SecurityColors
+import com.remembergo.app.utils.DialogoCrearZonaPeligrosa
+import com.remembergo.app.utils.LocationManager
+import com.remembergo.app.utils.SessionManager
+import com.remembergo.app.viewmodel.MapViewModel
+import com.remembergo.app.viewmodel.MapViewModelFactory
+import com.remembergo.app.viewmodel.NotificationViewModel
+import com.remembergo.app.viewmodel.UbicacionesViewModel
+import com.remembergo.app.viewmodel.UbicacionesViewModelFactory
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -207,13 +207,13 @@ fun MapScreen(
 
                     if (zonasCreadas.isNotEmpty()) {
                         notificationViewModel.showSuccess(
-                            context.getString(com.example.app.R.string.zones_loaded_success, zonasCreadas.size)
+                            context.getString(com.remembergo.app.R.string.zones_loaded_success, zonasCreadas.size)
                         )
                     }
                 } catch (e: Exception) {
                     Log.e("MapScreen", "Error cargando zonas: ${e.message}", e)
                     notificationViewModel.showError(
-                        context.getString(com.example.app.R.string.error_loading_zones)
+                        context.getString(com.remembergo.app.R.string.error_loading_zones)
                     )
                 } finally {
                     cargandoZonas = false
@@ -276,9 +276,9 @@ fun MapScreen(
                         Icon(
                             imageVector = if (showLocationCards) Icons.Default.VisibilityOff else Icons.Default.Visibility,
                             contentDescription = if (showLocationCards) {
-                                context.getString(com.example.app.R.string.map_hide_info)
+                                context.getString(com.remembergo.app.R.string.map_hide_info)
                             } else {
-                                context.getString(com.example.app.R.string.map_show_info)
+                                context.getString(com.remembergo.app.R.string.map_show_info)
                             },
                             tint = MaterialTheme.colorScheme.primary
                         )
@@ -321,8 +321,8 @@ fun MapScreen(
                                 onClick = {
                                     mostrarZonasPeligrosas = !mostrarZonasPeligrosas
                                     notificationViewModel.showInfo(
-                                        if (mostrarZonasPeligrosas) context.getString(com.example.app.R.string.map_zones_visible)
-                                        else context.getString(com.example.app.R.string.map_zones_hidden)
+                                        if (mostrarZonasPeligrosas) context.getString(com.remembergo.app.R.string.map_zones_visible)
+                                        else context.getString(com.remembergo.app.R.string.map_zones_hidden)
                                     )
                                 },
                                 badge = zonasCreadas.size.toString()
@@ -364,14 +364,14 @@ fun MapScreen(
                                     selectedAddress = address
                                     recenterTrigger++
                                     notificationViewModel.showSuccess(
-                                        context.getString(com.example.app.R.string.map_search_success)
+                                        context.getString(com.remembergo.app.R.string.map_search_success)
                                     )
                                 }
                             )
 
                             if (selectedAddress.isNotEmpty() && selectedAddress != currentAddress) {
                                 CompactLocationCard(
-                                    title = context.getString(com.example.app.R.string.map_selected_location),
+                                    title = context.getString(com.remembergo.app.R.string.map_selected_location),
                                     location = selectedAddress,
                                     icon = Icons.Default.LocationOn,
                                     iconColor = Color(0xFFEF4444)
@@ -396,12 +396,12 @@ fun MapScreen(
                                 ubicacionesViewModel.crearUbicacion(nuevaUbicacion) { success, error ->
                                     if (success) {
                                         notificationViewModel.showSuccess(
-                                            context.getString(com.example.app.R.string.map_destination_saved)
+                                            context.getString(com.remembergo.app.R.string.map_destination_saved)
                                         )
                                         navController.popBackStack()
                                     } else {
                                         notificationViewModel.showError(
-                                            error ?: context.getString(com.example.app.R.string.map_save_error)
+                                            error ?: context.getString(com.remembergo.app.R.string.map_save_error)
                                         )
                                     }
                                 }
@@ -425,14 +425,14 @@ fun MapScreen(
                     )
                     Spacer(modifier = Modifier.height(20.dp))
                     Text(
-                        context.getString(com.example.app.R.string.map_getting_location),
+                        context.getString(com.remembergo.app.R.string.map_getting_location),
                         style = MaterialTheme.typography.titleMedium,
                         color = MaterialTheme.colorScheme.onBackground,
                         fontWeight = FontWeight.SemiBold
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
-                        context.getString(com.example.app.R.string.map_getting_location_long),
+                        context.getString(com.remembergo.app.R.string.map_getting_location_long),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f)
                     )
@@ -460,7 +460,7 @@ fun MapScreen(
                                 Log.d("MapScreen", "✅ Nueva ubicación obtenida y guardada en caché")
                             } catch (e: Exception) {
                                 notificationViewModel.showError(
-                                    context.getString(com.example.app.R.string.map_location_error, e.message ?: "")
+                                    context.getString(com.remembergo.app.R.string.map_location_error, e.message ?: "")
                                 )
                             }
                         }
@@ -577,7 +577,7 @@ fun MapScreen(
                             )
 
                             notificationViewModel.showSuccess(
-                                context.getString(com.example.app.R.string.zone_created_success, response.nombre)
+                                context.getString(com.remembergo.app.R.string.zone_created_success, response.nombre)
                             )
 
                             Log.d("MapScreen", "Zona creada: ID=${response.id}, Radio=${radio}m")
@@ -595,7 +595,7 @@ fun MapScreen(
 
                         } catch (e: Exception) {
                             notificationViewModel.showError(
-                                context.getString(com.example.app.R.string.error_creating_zone, e.message ?: "")
+                                context.getString(com.remembergo.app.R.string.error_creating_zone, e.message ?: "")
                             )
                             Log.e("MapScreen", "Error creando zona", e)
                         }
@@ -668,7 +668,7 @@ fun CompactLocationCard(
                     fontWeight = FontWeight.Medium
                 )
                 Text(
-                    text = if (location.isNotEmpty()) location else context.getString(com.example.app.R.string.map_select_location),
+                    text = if (location.isNotEmpty()) location else context.getString(com.remembergo.app.R.string.map_select_location),
                     color = MaterialTheme.colorScheme.onSurface,
                     style = MaterialTheme.typography.bodySmall,
                     fontWeight = FontWeight.SemiBold,
@@ -735,7 +735,7 @@ fun BottomConfirmPanel(
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
-                        text = context.getString(com.example.app.R.string.map_naming_destination),
+                        text = context.getString(com.remembergo.app.R.string.map_naming_destination),
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onSurface
@@ -749,8 +749,8 @@ fun BottomConfirmPanel(
                     onValueChange = { newValue ->
                         if (newValue.length <= 100) onLocationNameChange(newValue)
                     },
-                    label = context.getString(com.example.app.R.string.map_destination_name_label),
-                    placeholder = context.getString(com.example.app.R.string.map_destination_placeholder),
+                    label = context.getString(com.remembergo.app.R.string.map_destination_name_label),
+                    placeholder = context.getString(com.remembergo.app.R.string.map_destination_placeholder),
                     modifier = Modifier.fillMaxWidth(),
                     borderColor = MaterialTheme.colorScheme.primary,
                     keyboardOptions = KeyboardOptions(
@@ -760,7 +760,7 @@ fun BottomConfirmPanel(
                 )
 
                 Text(
-                    text = context.getString(com.example.app.R.string.map_characters_count, locationName.length),
+                    text = context.getString(com.remembergo.app.R.string.map_characters_count, locationName.length),
                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
                     style = MaterialTheme.typography.labelSmall,
                     modifier = Modifier.padding(top = 4.dp)
@@ -769,7 +769,7 @@ fun BottomConfirmPanel(
                 Spacer(modifier = Modifier.height(16.dp))
 
                 AppButton(
-                    text = context.getString(com.example.app.R.string.map_save_destination),
+                    text = context.getString(com.remembergo.app.R.string.map_save_destination),
                     icon = Icons.Default.Check,
                     onClick = onConfirmClick,
                     modifier = Modifier.fillMaxWidth(),

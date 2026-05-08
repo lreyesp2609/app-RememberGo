@@ -1,4 +1,4 @@
-package com.example.app.screen.home.components
+package com.remembergo.app.screen.home.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -17,7 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.res.stringResource
-import com.example.app.R
+import com.remembergo.app.R
 import com.example.recuerdago.screens.tabs.ModuleCard
 
 @Composable

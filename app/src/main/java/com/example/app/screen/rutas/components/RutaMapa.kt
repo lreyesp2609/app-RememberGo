@@ -1,4 +1,4 @@
-package com.example.app.screen.rutas.components
+package com.remembergo.app.screen.rutas.components
 
 import android.util.Log
 import androidx.compose.foundation.background
@@ -58,21 +58,21 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.example.app.R
-import com.example.app.models.UbicacionUsuarioResponse
-import com.example.app.screen.mapa.GetCurrentLocation
-import com.example.app.screen.mapa.GpsEnableButton
-import com.example.app.screen.mapa.LocationTracker
-import com.example.app.screen.mapa.MapControlButton
-import com.example.app.screen.mapa.RouteInfoCard
-import com.example.app.screen.mapa.SimpleMapOSM
-import com.example.app.screen.mapa.calcularDistancia
-import com.example.app.utils.LocationManager
-import com.example.app.utils.getModeDisplayName
-import com.example.app.utils.getNivelPeligroColor
-import com.example.app.viewmodel.MapViewModel
-import com.example.app.viewmodel.MapViewModelFactory
-import com.example.app.viewmodel.decodePolyline
+import com.remembergo.app.R
+import com.remembergo.app.models.UbicacionUsuarioResponse
+import com.remembergo.app.screen.mapa.GetCurrentLocation
+import com.remembergo.app.screen.mapa.GpsEnableButton
+import com.remembergo.app.screen.mapa.LocationTracker
+import com.remembergo.app.screen.mapa.MapControlButton
+import com.remembergo.app.screen.mapa.RouteInfoCard
+import com.remembergo.app.screen.mapa.SimpleMapOSM
+import com.remembergo.app.screen.mapa.calcularDistancia
+import com.remembergo.app.utils.LocationManager
+import com.remembergo.app.utils.getModeDisplayName
+import com.remembergo.app.utils.getNivelPeligroColor
+import com.remembergo.app.viewmodel.MapViewModel
+import com.remembergo.app.viewmodel.MapViewModelFactory
+import com.remembergo.app.viewmodel.decodePolyline
 import kotlin.math.roundToInt
 
 @Composable

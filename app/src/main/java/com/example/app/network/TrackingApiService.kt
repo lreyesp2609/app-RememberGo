@@ -1,7 +1,7 @@
-package com.example.app.network
+package com.remembergo.app.network
 
-import com.example.app.services.LotePuntosGPSRequest
-import com.example.app.services.LotePuntosGPSResponse
+import com.remembergo.app.services.LotePuntosGPSRequest
+import com.remembergo.app.services.LotePuntosGPSResponse
 import retrofit2.http.*
 
 interface TrackingApiService {

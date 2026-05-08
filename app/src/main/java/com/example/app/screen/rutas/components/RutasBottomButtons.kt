@@ -1,4 +1,4 @@
-package com.example.app.screen.rutas.components
+package com.remembergo.app.screen.rutas.components
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
@@ -37,9 +37,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavController
 import androidx.compose.ui.res.stringResource
-import com.example.app.R
-import com.example.app.screen.components.AppBackButton
-import com.example.app.viewmodel.MapViewModel
+import com.remembergo.app.R
+import com.remembergo.app.screen.components.AppBackButton
+import com.remembergo.app.viewmodel.MapViewModel
 import kotlinx.coroutines.delay
 
 @Composable

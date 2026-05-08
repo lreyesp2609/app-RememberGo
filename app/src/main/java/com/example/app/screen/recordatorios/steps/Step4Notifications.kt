@@ -1,4 +1,4 @@
-package com.example.app.screen.recordatorios.steps
+package com.remembergo.app.screen.recordatorios.steps
 
 import android.content.Context
 import android.util.Log
@@ -56,12 +56,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.app.models.NotificationSound
-import com.example.app.models.Reminder
-import com.example.app.screen.components.AppButton
-import com.example.app.viewmodel.NotificationViewModel
-import com.example.app.viewmodel.ReminderViewModel
-import com.example.app.viewmodel.rememberSystemNotificationSounds
+import com.remembergo.app.models.NotificationSound
+import com.remembergo.app.models.Reminder
+import com.remembergo.app.screen.components.AppButton
+import com.remembergo.app.viewmodel.NotificationViewModel
+import com.remembergo.app.viewmodel.ReminderViewModel
+import com.remembergo.app.viewmodel.rememberSystemNotificationSounds
 
 @Composable
 fun Step4Notifications(

@@ -1,4 +1,4 @@
-package com.example.app.screen.home.components
+package com.remembergo.app.screen.home.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 import androidx.compose.ui.res.stringResource
-import com.example.app.R
+import com.remembergo.app.R
 
 @Composable
 fun LoadingContent() {

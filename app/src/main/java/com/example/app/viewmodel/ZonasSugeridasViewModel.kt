@@ -1,13 +1,13 @@
-package com.example.app.viewmodel
+package com.remembergo.app.viewmodel
 
 import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import android.util.Log
-import com.example.app.models.ZonaPeligrosaResponse
-import com.example.app.models.ZonaSugerida
-import com.example.app.network.RetrofitClient
+import com.remembergo.app.models.ZonaPeligrosaResponse
+import com.remembergo.app.models.ZonaSugerida
+import com.remembergo.app.network.RetrofitClient
 
 class ZonasSugeridasViewModel(private val token: String) : ViewModel() {
 

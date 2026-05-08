@@ -1,4 +1,4 @@
-package com.example.app.screen.grupos.components
+package com.remembergo.app.screen.grupos.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -42,25 +42,25 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import com.example.app.R
+import com.remembergo.app.R
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.example.app.models.GrupoCreate
-import com.example.app.network.RetrofitClient
-import com.example.app.screen.components.AppBackButton
-import com.example.app.screen.components.AppButton
-import com.example.app.repository.GrupoRepository
-import com.example.app.screen.components.AppSnackbarHost
-import com.example.app.screen.components.AppTextField
-import com.example.app.screen.components.rememberAppSnackbarState
-import com.example.app.screen.components.showErrorSnackbar
-import com.example.app.screen.components.showSuccessSnackbar
-import com.example.app.viewmodel.GrupoState
-import com.example.app.viewmodel.GrupoViewModel
-import com.example.app.viewmodel.GrupoViewModelFactory
-import com.example.app.viewmodel.NotificationViewModel
+import com.remembergo.app.models.GrupoCreate
+import com.remembergo.app.network.RetrofitClient
+import com.remembergo.app.screen.components.AppBackButton
+import com.remembergo.app.screen.components.AppButton
+import com.remembergo.app.repository.GrupoRepository
+import com.remembergo.app.screen.components.AppSnackbarHost
+import com.remembergo.app.screen.components.AppTextField
+import com.remembergo.app.screen.components.rememberAppSnackbarState
+import com.remembergo.app.screen.components.showErrorSnackbar
+import com.remembergo.app.screen.components.showSuccessSnackbar
+import com.remembergo.app.viewmodel.GrupoState
+import com.remembergo.app.viewmodel.GrupoViewModel
+import com.remembergo.app.viewmodel.GrupoViewModelFactory
+import com.remembergo.app.viewmodel.NotificationViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 

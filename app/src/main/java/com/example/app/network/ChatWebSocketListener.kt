@@ -1,4 +1,4 @@
-package com.example.app.network
+package com.remembergo.app.network
 
 import okhttp3.Response
 import okhttp3.WebSocket

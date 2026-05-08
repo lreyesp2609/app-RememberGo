@@ -1,8 +1,8 @@
-package com.example.app.network
+package com.remembergo.app.network
 
-import com.example.app.models.Reminder
-import com.example.app.models.ReminderRequest
-import com.example.app.models.ReminderResponse
+import com.remembergo.app.models.Reminder
+import com.remembergo.app.models.ReminderRequest
+import com.remembergo.app.models.ReminderResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE

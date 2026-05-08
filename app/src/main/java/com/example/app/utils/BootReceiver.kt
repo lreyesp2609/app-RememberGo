@@ -1,10 +1,10 @@
-package com.example.app.utils
+package com.remembergo.app.utils
 
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import com.example.app.services.UnifiedLocationService
+import com.remembergo.app.services.UnifiedLocationService
 
 class BootReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {

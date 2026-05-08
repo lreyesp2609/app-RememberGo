@@ -1,7 +1,7 @@
-package com.example.app.screen.grupos.components
+package com.remembergo.app.screen.grupos.components
 
 import android.content.Context
-import com.example.app.R
+import com.remembergo.app.R
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale

@@ -1,9 +1,9 @@
-package com.example.app.screen.rutas.components
+package com.remembergo.app.screen.rutas.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalContext
-import com.example.app.R
+import com.remembergo.app.R
 import calcularDistancia
 import calcularDistanciaSobreRuta
 import org.osmdroid.util.GeoPoint

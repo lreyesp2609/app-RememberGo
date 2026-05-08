@@ -1,12 +1,12 @@
-package com.example.app.viewmodel
+package com.remembergo.app.viewmodel
 
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.app.models.MiembroUbicacion
-import com.example.app.services.LocationTrackingService
-import com.example.app.utils.SessionManager
+import com.remembergo.app.models.MiembroUbicacion
+import com.remembergo.app.services.LocationTrackingService
+import com.remembergo.app.utils.SessionManager
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -37,15 +37,15 @@ class LocationGrupoViewModel(context: Context) : ViewModel() {
     }
 
     companion object {
-        private const val TAG = "📍WS_SessionManager"
+        private const val TAG = "WS_SessionManager"
     }
 
     init {
-        Log.d(TAG, "🎬 LocationGrupoViewModel inicializado")
+        Log.d(TAG, "LocationGrupoViewModel inicializado")
     }
 
     fun suscribirseAUbicaciones(grupoId: Int) {
-        Log.d(TAG, "📢 Suscribiéndose al grupo $grupoId")
+        Log.d(TAG, "Suscribiéndose al grupo $grupoId")
         currentGrupoId = grupoId // ✅ Guardar el ID
         LocationTrackingService.addMessageListener(grupoId, messageListener)
         _isConnected.value = true

@@ -15,8 +15,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.res.stringResource
-import com.example.app.R
-import com.example.app.viewmodel.AuthViewModel
+import com.remembergo.app.R
+import com.remembergo.app.viewmodel.AuthViewModel
 
 
 @Composable

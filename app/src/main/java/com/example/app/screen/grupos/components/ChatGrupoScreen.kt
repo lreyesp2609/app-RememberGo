@@ -1,4 +1,4 @@
-package com.example.app.screen.grupos.components
+package com.remembergo.app.screen.grupos.components
 
 import android.content.Context
 import android.util.Log
@@ -28,7 +28,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import com.example.app.R
+import com.remembergo.app.R
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.style.TextAlign
@@ -38,12 +38,12 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.app.models.EstadoMensaje
-import com.example.app.models.MensajeUI
-import com.example.app.screen.components.AppBackButton
-import com.example.app.services.MyFirebaseMessagingService
-import com.example.app.viewmodel.ChatGrupoViewModel
-import com.example.app.viewmodel.ChatGrupoViewModelFactory
+import com.remembergo.app.models.EstadoMensaje
+import com.remembergo.app.models.MensajeUI
+import com.remembergo.app.screen.components.AppBackButton
+import com.remembergo.app.services.MyFirebaseMessagingService
+import com.remembergo.app.viewmodel.ChatGrupoViewModel
+import com.remembergo.app.viewmodel.ChatGrupoViewModelFactory
 import kotlinx.coroutines.launch
 
 @Composable

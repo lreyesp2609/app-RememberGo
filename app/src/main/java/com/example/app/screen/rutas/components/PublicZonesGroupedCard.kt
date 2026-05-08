@@ -1,4 +1,4 @@
-package com.example.app.screen.rutas.components
+package com.remembergo.app.screen.rutas.components
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
@@ -53,8 +53,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.app.R
-import com.example.app.models.ZonaPublicaDetectada
+import com.remembergo.app.R
+import com.remembergo.app.models.ZonaPublicaDetectada
 import kotlinx.coroutines.delay
 
 @Composable

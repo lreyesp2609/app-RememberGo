@@ -1,4 +1,4 @@
-package com.example.app.screen.rutas.components
+package com.remembergo.app.screen.rutas.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
@@ -27,7 +27,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
 import android.content.Context
-import com.example.app.R
+import com.remembergo.app.R
 
 // ✅ Función NORMAL (sin @Composable) - para usar en ViewModel
 fun getPreferenceDisplayName(context: Context, preference: String): String {

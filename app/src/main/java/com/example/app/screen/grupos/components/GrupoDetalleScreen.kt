@@ -1,4 +1,4 @@
-package com.example.app.screen.grupos.components
+package com.remembergo.app.screen.grupos.components
 
 import android.widget.Toast
 import androidx.compose.foundation.background
@@ -57,18 +57,18 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.res.stringResource
-import com.example.app.R
+import com.remembergo.app.R
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.app.network.RetrofitClient
-import com.example.app.repository.GrupoRepository
-import com.example.app.screen.components.AppBackButton
-import com.example.app.utils.SessionManager
-import com.example.app.viewmodel.GrupoViewModel
-import com.example.app.viewmodel.GrupoViewModelFactory
-import com.example.app.viewmodel.IntegrantesViewModel
-import com.example.app.viewmodel.IntegrantesViewModelFactory
+import com.remembergo.app.network.RetrofitClient
+import com.remembergo.app.repository.GrupoRepository
+import com.remembergo.app.screen.components.AppBackButton
+import com.remembergo.app.utils.SessionManager
+import com.remembergo.app.viewmodel.GrupoViewModel
+import com.remembergo.app.viewmodel.GrupoViewModelFactory
+import com.remembergo.app.viewmodel.IntegrantesViewModel
+import com.remembergo.app.viewmodel.IntegrantesViewModelFactory
 
 @Composable
 fun GrupoDetalleScreen(

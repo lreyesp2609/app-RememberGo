@@ -1,9 +1,9 @@
-package com.example.app.viewmodel
+package com.remembergo.app.viewmodel
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.app.repository.RutasRepository
+import com.remembergo.app.repository.RutasRepository
 
 class MapViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
 

@@ -1,4 +1,4 @@
-package com.example.app.screen.recordatorios.steps
+package com.remembergo.app.screen.recordatorios.steps
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

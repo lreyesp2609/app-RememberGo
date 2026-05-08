@@ -1,8 +1,8 @@
-package com.example.app.utils
+package com.remembergo.app.utils
 
 import android.content.Context
 import android.util.Log
-import com.example.app.models.User
+import com.remembergo.app.models.User
 import com.google.gson.Gson
 
 class SessionManager private constructor(context: Context) {

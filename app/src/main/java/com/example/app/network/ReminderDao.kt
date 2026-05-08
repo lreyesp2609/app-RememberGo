@@ -1,7 +1,7 @@
-package com.example.app.network
+package com.remembergo.app.network
 
 import androidx.room.*
-import com.example.app.models.ReminderEntity
+import com.remembergo.app.models.ReminderEntity
 
 @Dao
 interface ReminderDao {

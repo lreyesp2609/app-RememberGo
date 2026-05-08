@@ -1,4 +1,4 @@
-package com.example.app.viewmodel
+package com.remembergo.app.viewmodel
 
 import android.content.Context
 import android.util.Log
@@ -6,12 +6,12 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.app.models.*
-import com.example.app.network.RetrofitClient
-import com.example.app.network.RetrofitInstance
-import com.example.app.repository.RutasRepository
-import com.example.app.screen.rutas.components.getPreferenceDisplayName
-import com.example.app.ui.theme.DangerLevelColors
+import com.remembergo.app.models.*
+import com.remembergo.app.network.RetrofitClient
+import com.remembergo.app.network.RetrofitInstance
+import com.remembergo.app.repository.RutasRepository
+import com.remembergo.app.screen.rutas.components.getPreferenceDisplayName
+import com.remembergo.app.ui.theme.DangerLevelColors
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch

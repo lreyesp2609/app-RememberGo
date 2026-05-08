@@ -1,7 +1,7 @@
-package com.example.app.network
+package com.remembergo.app.network
 
-import com.example.app.models.UbicacionUsuarioCreate
-import com.example.app.models.UbicacionUsuarioResponse
+import com.remembergo.app.models.UbicacionUsuarioCreate
+import com.remembergo.app.models.UbicacionUsuarioResponse
 import retrofit2.Response
 import retrofit2.http.*
 

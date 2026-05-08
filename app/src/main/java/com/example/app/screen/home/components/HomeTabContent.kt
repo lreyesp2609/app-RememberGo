@@ -1,4 +1,4 @@
-package com.example.app.screen.home.components
+package com.remembergo.app.screen.home.components
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
@@ -12,9 +12,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.app.viewmodel.AuthViewModel
+import com.remembergo.app.viewmodel.AuthViewModel
 import com.example.recuerdago.screens.tabs.ErrorContent
-import com.example.recuerdago.screens.tabs.NoUserContent
+import com.remembergo.app.screen.home.components.NoUserContent
 
 @Composable
 fun HomeTabContent(

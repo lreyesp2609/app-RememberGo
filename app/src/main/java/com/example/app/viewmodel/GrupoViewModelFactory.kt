@@ -1,8 +1,8 @@
-package com.example.app.viewmodel
+package com.remembergo.app.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.app.repository.GrupoRepository
+import com.remembergo.app.repository.GrupoRepository
 
 class GrupoViewModelFactory(
     private val context: android.content.Context,

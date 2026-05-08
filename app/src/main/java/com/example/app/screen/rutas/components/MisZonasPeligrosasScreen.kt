@@ -1,4 +1,4 @@
-package com.example.app.screen.rutas.components
+package com.remembergo.app.screen.rutas.components
 
 import android.util.Log
 import androidx.compose.foundation.BorderStroke
@@ -68,24 +68,24 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.app.R
-import com.example.app.models.ZonaGuardada
-import com.example.app.models.ZonaPeligrosaCreate
-import com.example.app.models.ZonaSugerida
-import com.example.app.network.RetrofitClient
-import com.example.app.screen.components.AppBackButton
-import com.example.app.screen.mapa.GetCurrentLocation
-import com.example.app.screen.mapa.GpsEnableButton
-import com.example.app.screen.mapa.MapControlButton
-import com.example.app.screen.mapa.OpenStreetMap
-import com.example.app.ui.theme.AppColors
-import com.example.app.ui.theme.DangerLevelColors
-import com.example.app.utils.DialogoCrearZonaPeligrosa
-import com.example.app.utils.LocationManager
-import com.example.app.utils.SessionManager
-import com.example.app.viewmodel.MapViewModel
-import com.example.app.viewmodel.NotificationViewModel
-import com.example.app.viewmodel.ZonasSugeridasViewModel
+import com.remembergo.app.R
+import com.remembergo.app.models.ZonaGuardada
+import com.remembergo.app.models.ZonaPeligrosaCreate
+import com.remembergo.app.models.ZonaSugerida
+import com.remembergo.app.network.RetrofitClient
+import com.remembergo.app.screen.components.AppBackButton
+import com.remembergo.app.screen.mapa.GetCurrentLocation
+import com.remembergo.app.screen.mapa.GpsEnableButton
+import com.remembergo.app.screen.mapa.MapControlButton
+import com.remembergo.app.screen.mapa.OpenStreetMap
+import com.remembergo.app.ui.theme.AppColors
+import com.remembergo.app.ui.theme.DangerLevelColors
+import com.remembergo.app.utils.DialogoCrearZonaPeligrosa
+import com.remembergo.app.utils.LocationManager
+import com.remembergo.app.utils.SessionManager
+import com.remembergo.app.viewmodel.MapViewModel
+import com.remembergo.app.viewmodel.NotificationViewModel
+import com.remembergo.app.viewmodel.ZonasSugeridasViewModel
 import kotlinx.coroutines.launch
 
 // ─── MisZonasPeligrosasScreen ──────────────────────────────────────────────────

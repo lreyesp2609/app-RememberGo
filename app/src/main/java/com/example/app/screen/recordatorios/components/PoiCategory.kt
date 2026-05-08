@@ -1,7 +1,7 @@
-package com.example.app.screen.recordatorios.components
+package com.remembergo.app.screen.recordatorios.components
 
-import com.example.app.R
-import com.example.app.models.Feature
+import com.remembergo.app.R
+import com.remembergo.app.models.Feature
 
 enum class PoiCategory(val iconRes: Int) {
     // Education

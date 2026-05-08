@@ -1,8 +1,8 @@
-package com.example.app.websocket
+package com.remembergo.app.websocket
 
 import android.content.Context
 import android.util.Log
-import com.example.app.utils.SessionManager
+import com.remembergo.app.utils.SessionManager
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

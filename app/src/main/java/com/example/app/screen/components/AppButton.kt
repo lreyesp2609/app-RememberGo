@@ -1,4 +1,4 @@
-package com.example.app.screen.components
+package com.remembergo.app.screen.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement

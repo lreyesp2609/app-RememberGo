@@ -1,4 +1,4 @@
-package com.example.app.utils
+package com.remembergo.app.utils
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
@@ -34,8 +34,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.app.viewmodel.NotificationType
-import com.example.app.viewmodel.NotificationViewModel
+import com.remembergo.app.viewmodel.NotificationType
+import com.remembergo.app.viewmodel.NotificationViewModel
 import kotlinx.coroutines.delay
 import androidx.compose.runtime.getValue
 

@@ -1,4 +1,4 @@
-package com.example.app.models
+package com.remembergo.app.models
 
 data class ZonaSugerida(
     val zonaOriginal: ZonaPeligrosaResponse,

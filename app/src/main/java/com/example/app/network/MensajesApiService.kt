@@ -1,7 +1,7 @@
-package com.example.app.network
+package com.remembergo.app.network
 
-import com.example.app.models.MarcarLeidoResponse
-import com.example.app.models.MensajeResponse
+import com.remembergo.app.models.MarcarLeidoResponse
+import com.remembergo.app.models.MensajeResponse
 import retrofit2.Response
 import retrofit2.http.*
 

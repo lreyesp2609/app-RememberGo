@@ -1,4 +1,4 @@
-package com.example.app.screen.rutas
+package com.remembergo.app.screen.rutas
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
@@ -66,14 +66,14 @@ import androidx.navigation.NavController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.app.R
-import com.example.app.models.UbicacionUsuarioResponse
-import com.example.app.screen.components.AppButton
-import com.example.app.ui.theme.AppColors
-import com.example.app.ui.theme.SecurityColors
-import com.example.app.viewmodel.NotificationViewModel
-import com.example.app.viewmodel.UbicacionesViewModel
-import com.example.app.viewmodel.UbicacionesViewModelFactory
+import com.remembergo.app.R
+import com.remembergo.app.models.UbicacionUsuarioResponse
+import com.remembergo.app.screen.components.AppButton
+import com.remembergo.app.ui.theme.AppColors
+import com.remembergo.app.ui.theme.SecurityColors
+import com.remembergo.app.viewmodel.NotificationViewModel
+import com.remembergo.app.viewmodel.UbicacionesViewModel
+import com.remembergo.app.viewmodel.UbicacionesViewModelFactory
 import kotlinx.coroutines.delay
 
 @Composable

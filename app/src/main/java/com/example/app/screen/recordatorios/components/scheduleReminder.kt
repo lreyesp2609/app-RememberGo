@@ -1,11 +1,11 @@
-package com.example.app.screen.recordatorios.components
+package com.remembergo.app.screen.recordatorios.components
 
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import com.example.app.models.ReminderEntity
+import com.remembergo.app.models.ReminderEntity
 import java.util.Calendar
 import kotlin.jvm.java
 

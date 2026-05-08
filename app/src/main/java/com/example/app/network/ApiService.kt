@@ -1,8 +1,8 @@
-package com.example.app.network
+package com.remembergo.app.network
 
-import com.example.app.models.LoginResponse
-import com.example.app.models.ProfileResponse
-import com.example.app.models.User
+import com.remembergo.app.models.LoginResponse
+import com.remembergo.app.models.ProfileResponse
+import com.remembergo.app.models.User
 import retrofit2.Response
 import retrofit2.http.*
 

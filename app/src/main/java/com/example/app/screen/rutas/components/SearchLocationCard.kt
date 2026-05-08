@@ -1,4 +1,4 @@
-package com.example.app.screen.rutas.components
+package com.remembergo.app.screen.rutas.components
 
 import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
@@ -45,10 +45,10 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.res.stringResource
-import com.example.app.R
-import com.example.app.models.NominatimResponse
-import com.example.app.models.NominatimSearchResult
-import com.example.app.network.NominatimClient
+import com.remembergo.app.R
+import com.remembergo.app.models.NominatimResponse
+import com.remembergo.app.models.NominatimSearchResult
+import com.remembergo.app.network.NominatimClient
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

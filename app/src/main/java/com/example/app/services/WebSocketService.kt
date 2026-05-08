@@ -1,4 +1,4 @@
-package com.example.app.services
+package com.remembergo.app.services
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -7,17 +7,18 @@ import android.app.PendingIntent
 import android.app.Service
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ServiceInfo
 import android.os.Build
 import android.os.IBinder
 import android.util.Log
 import androidx.core.app.NotificationCompat
-import com.example.app.BuildConfig
-import com.example.app.MainActivity
-import com.example.app.R
-import com.example.app.utils.SessionManager
-import com.example.app.websocket.NotificationWebSocketManager
-import com.example.app.websocket.WebSocketLocationManager
-import com.example.app.websocket.WebSocketManager
+import com.remembergo.app.BuildConfig
+import com.remembergo.app.MainActivity
+import com.remembergo.app.R
+import com.remembergo.app.utils.SessionManager
+import com.remembergo.app.websocket.NotificationWebSocketManager
+import com.remembergo.app.websocket.WebSocketLocationManager
+import com.remembergo.app.websocket.WebSocketManager
 
 class WebSocketService : Service() {
     private var isRunning = false
@@ -69,7 +70,15 @@ class WebSocketService : Service() {
                     Log.d(TAG, "🚀 INICIANDO SERVICIO DE WEBSOCKETS")
                     Log.d(TAG, "🚀 ════════════════════════════════════════")
 
-                    startForeground(NOTIFICATION_ID, createNotification())
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                        startForeground(
+                            NOTIFICATION_ID,
+                            createNotification(),
+                            ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC
+                        )
+                    } else {
+                        startForeground(NOTIFICATION_ID, createNotification())
+                    }
                     connectWebSockets()
                     isRunning = true
 
