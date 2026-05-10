@@ -21,7 +21,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import com.remembergo.app.R
+import com.remembergo.app.repository.LoginState
 import com.remembergo.app.screen.components.AppButton
 import com.remembergo.app.screen.components.AppTextField
 import com.remembergo.app.screen.components.LanguageSelector
@@ -153,31 +155,59 @@ fun LoginScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        AppButton(
-            text = if (authViewModel.isLoading) stringResource(R.string.logging_in) else stringResource(R.string.login_button),
-            isLoading = authViewModel.isLoading,
-            onClick = {
-                when {
-                    email.isBlank() && password.isBlank() -> {
-                        notificationViewModel.showError(context.getString(R.string.error_empty_fields))
-                    }
-                    email.isBlank() -> {
-                        notificationViewModel.showError(context.getString(R.string.error_empty_email))
-                    }
-                    password.isBlank() -> {
-                        notificationViewModel.showError(context.getString(R.string.error_empty_password))
-                    }
-                    else -> {
-                        authViewModel.login(email, password) { loginExitoso ->
-                            if (loginExitoso) {
-                                notificationViewModel.showSuccess(context.getString(R.string.login_success))
+        if (authViewModel.loginState is LoginState.Retrying) {
+            val state = authViewModel.loginState as LoginState.Retrying
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Text(
+                    text = "El servidor está iniciando, por favor espera...",
+                    fontSize = 16.sp,
+                    color = MaterialTheme.colorScheme.primary,
+                    textAlign = TextAlign.Center,
+                    fontWeight = FontWeight.Medium
+                )
+                Text(
+                    text = "Intento ${state.attempt} de ${state.max}",
+                    fontSize = 14.sp,
+                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f)
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                LinearProgressIndicator(
+                    modifier = Modifier.fillMaxWidth().height(8.dp),
+                    color = MaterialTheme.colorScheme.primary,
+                    trackColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.2f)
+                )
+            }
+        } else {
+            AppButton(
+                text = if (authViewModel.isLoading) stringResource(R.string.logging_in) else stringResource(R.string.login_button),
+                isLoading = authViewModel.isLoading,
+                enabled = !authViewModel.isLoading,
+                onClick = {
+                    when {
+                        email.isBlank() && password.isBlank() -> {
+                            notificationViewModel.showError(context.getString(R.string.error_empty_fields))
+                        }
+                        email.isBlank() -> {
+                            notificationViewModel.showError(context.getString(R.string.error_empty_email))
+                        }
+                        password.isBlank() -> {
+                            notificationViewModel.showError(context.getString(R.string.error_empty_password))
+                        }
+                        else -> {
+                            authViewModel.login(email, password) { loginExitoso ->
+                                if (loginExitoso) {
+                                    notificationViewModel.showSuccess(context.getString(R.string.login_success))
+                                }
                             }
                         }
                     }
                 }
-            }
-        )
-
+            )
+        }
 
         Spacer(modifier = Modifier.weight(1f))
 
@@ -185,6 +215,7 @@ fun LoginScreen(
             text = stringResource(R.string.create_new_account),
             icon = Icons.Default.PersonAdd,
             outlined = true,
+            enabled = !authViewModel.isLoading,
             onClick = { navController.navigate("register") },
         )
 

@@ -22,6 +22,7 @@ import com.remembergo.app.models.toReminder
 import com.remembergo.app.network.AppDatabase
 import com.remembergo.app.network.RetrofitClient
 import com.remembergo.app.repository.AuthRepository
+import com.remembergo.app.repository.LoginState
 import com.remembergo.app.repository.ReminderRepository
 import com.remembergo.app.screen.recordatorios.components.ReminderReceiver
 import com.remembergo.app.screen.recordatorios.components.scheduleReminder
@@ -49,6 +50,8 @@ class AuthViewModel(private val context: Context) : ViewModel() {
         private set
     // Estados de la UI
     var isLoading by mutableStateOf(false)
+        private set
+    var loginState by mutableStateOf<LoginState?>(null)
         private set
     var user by mutableStateOf<User?>(null)
         private set
@@ -93,7 +96,7 @@ class AuthViewModel(private val context: Context) : ViewModel() {
                             getCurrentUser {
                                 restoreUserReminders(context, response.accessToken)
                                 iniciarTrackingPasivoDespuesDeLogin()
-                                isRestoringSession = false  // 🔥 Mover AQUÍ dentro del callback
+                                isRestoringSession = false
                                 isLoading = false
                             }
                         } else {
@@ -103,13 +106,37 @@ class AuthViewModel(private val context: Context) : ViewModel() {
                             isLoading = false
                         }
                     },
-                    onFailure = {
-                        clearLocalSession() // ya incluye isRestoringSession = false
+                    onFailure = { error ->
+                        val msg = error.message ?: ""
+                        Log.e(TAG, "❌ Error restaurando sesión: $msg")
+
+                        // ✅ DISTINGUIR ERROR DE RED VS TOKEN (Modo WhatsApp)
+                        val isNetworkError = msg.contains("NETWORK_ERROR") ||
+                                           msg.contains("IO_EXCEPTION") ||
+                                           msg.contains("SERVER_ERROR")
+
+                        if (isNetworkError) {
+                            Log.w(TAG, "⚠️ Error de red detectado. Manteniendo sesión local.")
+                            
+                            // Aseguramos que el estado refleje que el usuario sigue dentro
+                            if (accessToken != null) {
+                                isLoggedIn = true
+                            }
+                            
+                            isRestoringSession = false
+                            isLoading = false
+                            
+                            // Intentamos arrancar servicios (usarán datos locales/cache)
+                            iniciarTrackingPasivoDespuesDeLogin()
+                        } else {
+                            Log.e(TAG, "🚨 Error de autenticación real (401 o expirado). Cerrando sesión.")
+                            clearLocalSession()
+                        }
                     }
                 )
             }
         } else {
-            clearLocalSession() // ya incluye isRestoringSession = false
+            clearLocalSession()
         }
     }
 
@@ -137,58 +164,68 @@ class AuthViewModel(private val context: Context) : ViewModel() {
 
     fun login(email: String, password: String, onResult: (Boolean) -> Unit) {
         viewModelScope.launch {
-            isLoading = true
             errorMessage = null
 
             repository.login(email, password, Build.MODEL, getAppVersion(context), obtenerIp())
-                .fold(
-                    onSuccess = { loginResponse ->
-                        accessToken = loginResponse.accessToken
-                        isLoggedIn = true
-
-                        sessionManager.saveTokens(loginResponse.accessToken, loginResponse.refreshToken)
-                        sessionManager.saveLoginState(true)
-
-                        getCurrentUser {
-                            restoreUserReminders(context, loginResponse.accessToken)
-                            enviarTokenFCMPendiente()
-
-                            // 🔥 NUEVO: Iniciar tracking pasivo después del login
-                            iniciarTrackingPasivoDespuesDeLogin()
-
-                            onResult(true)
+                .collect { state ->
+                    loginState = state
+                    when (state) {
+                        is LoginState.Loading -> {
+                            isLoading = true
                         }
-                    },
-                    onFailure = { exception ->
-                        isLoggedIn = false
-                        sessionManager.saveLoginState(false)
-                        isLoading = false
-                        errorMessage = when {
-                            exception.message?.contains("INVALID_CREDENTIALS") == true -> {
-                                context.getString(R.string.error_invalid_credentials)
-                            }
-                            exception.message?.contains("USER_NOT_FOUND") == true -> {
-                                context.getString(R.string.error_user_not_found)
-                            }
-                            exception.message?.contains("ACCOUNT_LOCKED") == true -> {
-                                context.getString(R.string.error_account_locked)
-                            }
-                            exception.message?.contains("NETWORK_ERROR") == true -> {
-                                context.getString(R.string.error_no_internet)
-                            }
-                            exception.message?.contains("401") == true -> {
-                                context.getString(R.string.error_invalid_credentials_short)
-                            }
-                            exception.message?.contains("500") == true -> {
-                                context.getString(R.string.error_server_internal)
-                            }
-                            else -> {
-                                context.getString(R.string.error_login_generic)
+                        is LoginState.Retrying -> {
+                            isLoading = true
+                        }
+                        is LoginState.Success -> {
+                            val loginResponse = state.data
+                            accessToken = loginResponse.accessToken
+                            isLoggedIn = true
+
+                            sessionManager.saveTokens(loginResponse.accessToken, loginResponse.refreshToken)
+                            sessionManager.saveLoginState(true)
+
+                            getCurrentUser {
+                                restoreUserReminders(context, loginResponse.accessToken)
+                                enviarTokenFCMPendiente()
+                                iniciarTrackingPasivoDespuesDeLogin()
+                                isLoading = false
+                                loginState = null
+                                onResult(true)
                             }
                         }
-                        onResult(false)
+                        is LoginState.Error -> {
+                            val exceptionMessage = state.message
+                            isLoggedIn = false
+                            sessionManager.saveLoginState(false)
+                            isLoading = false
+                            errorMessage = when {
+                                exceptionMessage.contains("INVALID_CREDENTIALS") -> {
+                                    context.getString(R.string.error_invalid_credentials)
+                                }
+                                exceptionMessage.contains("USER_NOT_FOUND") -> {
+                                    context.getString(R.string.error_user_not_found)
+                                }
+                                exceptionMessage.contains("ACCOUNT_LOCKED") -> {
+                                    context.getString(R.string.error_account_locked)
+                                }
+                                exceptionMessage.contains("NETWORK_ERROR") -> {
+                                    context.getString(R.string.error_no_internet)
+                                }
+                                exceptionMessage.contains("401") -> {
+                                    context.getString(R.string.error_invalid_credentials_short)
+                                }
+                                exceptionMessage.contains("500") -> {
+                                    context.getString(R.string.error_server_internal)
+                                }
+                                else -> {
+                                    context.getString(R.string.error_login_generic)
+                                }
+                            }
+                            loginState = null
+                            onResult(false)
+                        }
                     }
-                )
+                }
         }
     }
 
@@ -384,15 +421,24 @@ class AuthViewModel(private val context: Context) : ViewModel() {
                         errorMessage = null
                         onSuccess()
                     },
-                    onFailure = {
-                        user = null
-                        isLoggedIn = false
-                        accessToken = null
-                        sessionManager.saveLoginState(false)
-                        isLoading = false
-                        isRestoringSession = false  // 🔥 AGREGAR ESTO
-                        errorMessage = it.message
-                        // onSuccess nunca se llama aquí = spinner infinito
+                    onFailure = { error ->
+                        val msg = error.message ?: ""
+                        Log.e(TAG, "❌ Error obteniendo usuario: $msg")
+
+                        val isNetworkError = msg.contains("NETWORK_ERROR") ||
+                                           msg.contains("SERVER_ERROR")
+
+                        if (isNetworkError) {
+                            Log.w(TAG, "⚠️ Error de red al obtener usuario. Continuando con datos locales.")
+                            isLoading = false
+                            isRestoringSession = false
+                            // ✅ Importante: Llamamos a onSuccess para que el flujo de arranque continúe
+                            onSuccess()
+                        } else {
+                            Log.e(TAG, "🚨 Error de autenticación real al obtener usuario.")
+                            clearLocalSession()
+                            errorMessage = msg
+                        }
                     }
                 )
             }
@@ -402,7 +448,7 @@ class AuthViewModel(private val context: Context) : ViewModel() {
             sessionManager.saveLoginState(false)
             errorMessage = context.getString(R.string.error_no_token)
             isLoading = false
-            isRestoringSession = false  // 🔥 AGREGAR ESTO también aquí
+            isRestoringSession = false
         }
     }
 

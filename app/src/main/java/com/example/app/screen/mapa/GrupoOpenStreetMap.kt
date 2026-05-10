@@ -13,6 +13,9 @@ import org.osmdroid.events.ZoomEvent
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import android.util.Log
 import com.remembergo.app.R
 import com.remembergo.app.models.MiembroUbicacion
@@ -43,12 +46,40 @@ fun GrupoOpenStreetMap(
 ) {
     val mapView = rememberMapViewForGrupo(context, zoom)
     val youLabel = stringResource(R.string.you)
+    val lifecycleOwner = LocalLifecycleOwner.current
 
+    // 1. Configuración de OSMDroid (Debe incluir UserAgent)
     LaunchedEffect(Unit) {
-        Configuration.getInstance().load(
+        val configuration = Configuration.getInstance()
+        configuration.userAgentValue = context.packageName // Identificación requerida
+        configuration.load(
             context,
             context.getSharedPreferences("osmdroid", Context.MODE_PRIVATE)
         )
+    }
+
+    // 2. Manejo estricto del ciclo de vida para cargar tiles
+    DisposableEffect(lifecycleOwner) {
+        val observer = LifecycleEventObserver { _, event ->
+            when (event) {
+                Lifecycle.Event.ON_RESUME -> {
+                    Log.d("GrupoMap", "🔄 MapView.onResume()")
+                    mapView.onResume()
+                }
+                Lifecycle.Event.ON_PAUSE -> {
+                    Log.d("GrupoMap", "⏸️ MapView.onPause()")
+                    mapView.onPause()
+                }
+                Lifecycle.Event.ON_DESTROY -> {
+                    mapView.onDetach()
+                }
+                else -> {}
+            }
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+        onDispose {
+            lifecycleOwner.lifecycle.removeObserver(observer)
+        }
     }
 
     // Log para verificar datos

@@ -12,6 +12,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import org.osmdroid.config.Configuration
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
@@ -57,12 +60,40 @@ fun OpenStreetMap(
     isDarkTheme: Boolean = false
 ) {
     val mapView = rememberMapView(context, zoom)
+    val lifecycleOwner = LocalLifecycleOwner.current
 
+    // 1. Configuración de OSMDroid (Identificación obligatoria para tiles)
     LaunchedEffect(Unit) {
-        Configuration.getInstance().load(
+        val configuration = Configuration.getInstance()
+        configuration.userAgentValue = context.packageName
+        configuration.load(
             context,
             context.getSharedPreferences("osmdroid", Context.MODE_PRIVATE)
         )
+    }
+
+    // 2. Control del Ciclo de Vida del MapView
+    DisposableEffect(lifecycleOwner) {
+        val observer = LifecycleEventObserver { _, event ->
+            when (event) {
+                Lifecycle.Event.ON_RESUME -> {
+                    Log.d("OpenStreetMap", "🔄 MapView.onResume()")
+                    mapView.onResume()
+                }
+                Lifecycle.Event.ON_PAUSE -> {
+                    Log.d("OpenStreetMap", "⏸️ MapView.onPause()")
+                    mapView.onPause()
+                }
+                Lifecycle.Event.ON_DESTROY -> {
+                    mapView.onDetach()
+                }
+                else -> {}
+            }
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+        onDispose {
+            lifecycleOwner.lifecycle.removeObserver(observer)
+        }
     }
 
     LaunchedEffect(latitude, longitude) {
