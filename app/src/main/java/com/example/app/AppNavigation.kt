@@ -70,8 +70,13 @@ fun AppNavigation(
     ) {
     val context = LocalContext.current
     val notificationViewModel: NotificationViewModel = viewModel()
-    val database = AppDatabase.getDatabase(context)
-    val repository = ReminderRepository(database.reminderDao())
+    
+    // 🔥 Optimización: Usar remember para evitar recrear repositorio en cada recomposición
+    val repository = remember {
+        val database = AppDatabase.getDatabase(context)
+        ReminderRepository(database.reminderDao())
+    }
+
     val reminderViewModel: ReminderViewModel = viewModel(
         factory = ReminderViewModelFactory(repository)
     )

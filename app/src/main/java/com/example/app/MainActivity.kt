@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
@@ -33,12 +34,15 @@ import com.remembergo.app.viewmodel.AuthViewModel
 import com.remembergo.app.viewmodel.MapViewModel
 import com.remembergo.app.viewmodel.MapViewModelFactory
 import com.remembergo.app.websocket.testWebSocketPing
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity() {
 
     private var navController: NavHostController? = null
     private var pendingNavigation: PendingNavigation? = null
     private lateinit var authViewModel: AuthViewModel  // 🔥 AGREGAR
+    private var lastTokenRefreshTime: Long = 0L
 
 
     data class PendingNavigation(
@@ -90,28 +94,26 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        authViewModel = ViewModelProvider(  // 🔥 GUARDAR REFERENCIA
+        // 1. Inicializar ViewModel una sola vez
+        authViewModel = ViewModelProvider(
             this,
             AuthViewModel.AuthViewModelFactory(this)
         )[AuthViewModel::class.java]
 
-        Log.d(TAG, "🏗️ ════════════════════════════════════════")
         Log.d(TAG, "🏗️ onCreate LLAMADO")
-        Log.d(TAG, "🏗️ ════════════════════════════════════════")
 
-        NotificationHelper.createNotificationChannel(this)
-        testWebSocketPing()
+        // 2. Mover tareas pesadas o de red fuera del main thread
+        lifecycleScope.launch(Dispatchers.Default) {
+            NotificationHelper.createNotificationChannel(this@MainActivity)
+            testWebSocketPing()
+        }
 
-        val authViewModel: AuthViewModel = ViewModelProvider(
-            this,
-            AuthViewModel.AuthViewModelFactory(this)
-        )[AuthViewModel::class.java]
-
+        // 3. Configuración de UI
         WindowCompat.setDecorFitsSystemWindows(window, false)
         window.navigationBarColor = Color.Black.toArgb()
         window.statusBarColor = Color.Black.toArgb()
         val windowInsetsController = WindowCompat.getInsetsController(window, window.decorView)
-        windowInsetsController.apply {
+        windowInsetsController?.apply {
             isAppearanceLightStatusBars = false
             isAppearanceLightNavigationBars = false
         }
@@ -167,12 +169,19 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        // 🔥 Solo refrescar si ya terminó de restaurar sesión
+        // 🔥 Solo refrescar si ya terminó de restaurar sesión y pasó el cooldown de 60s
         if (::authViewModel.isInitialized &&
             !authViewModel.isRestoringSession &&
             authViewModel.isLoggedIn) {
-            Log.d(TAG, "🔄 App volvió de background - verificando token")
-            authViewModel.verificarYRefrescarToken()
+            
+            val currentTime = System.currentTimeMillis()
+            if (currentTime - lastTokenRefreshTime > 60000) { // 60 segundos
+                Log.d(TAG, "🔄 App volvió de background - verificando token")
+                authViewModel.verificarYRefrescarToken()
+                lastTokenRefreshTime = currentTime
+            } else {
+                Log.d(TAG, "⏳ Refresh omitido por cooldown (menos de 60s)")
+            }
         }
     }
 

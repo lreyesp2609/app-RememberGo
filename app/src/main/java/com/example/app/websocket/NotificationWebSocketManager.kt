@@ -43,6 +43,9 @@ object NotificationWebSocketManager {
     private val _isConnected = MutableStateFlow(false)
     val isConnected: StateFlow<Boolean> = _isConnected
 
+    // 🆕 Flag para saber si hay una conexión en curso
+    private var isConnecting = false
+
     // 🆕 Flag para saber si es una reconexión automática
     private var isReconnecting = false
 
@@ -52,6 +55,7 @@ object NotificationWebSocketManager {
             Log.d(TAG, "✅ WEBSOCKET DE NOTIFICACIONES CONECTADO")
             Log.d(TAG, "✅ ════════════════════════════════════════")
             _isConnected.value = true
+            isConnecting = false
             isReconnecting = false
         }
 
@@ -77,9 +81,9 @@ object NotificationWebSocketManager {
                         val code = json.optString("code")
                         Log.e(TAG, "❌ Error del servidor [$code]: $message")
 
-                        if (code == "TOKEN_EXPIRED") {
-                            Log.e(TAG, "🔒 Token expirado, cerrando WebSocket")
-                            close()
+                        if (code == "TOKEN_EXPIRED" || code == "INVALID_TOKEN") {
+                            Log.e(TAG, "🔒 Token inválido [$code], esperando refresh...")
+                            disconnect() // Desconectar pero mantener savedBaseUrl para reconectar luego
                         }
                     }
                     else -> {
@@ -94,6 +98,8 @@ object NotificationWebSocketManager {
 
         override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
             Log.e(TAG, "❌ Error en WebSocket: ${t.message}")
+            isConnecting = false
+            _isConnected.value = false
 
             // 🆕 Si es error 403 y NO estamos reconectando, reconectar con nuevo token
             if (response?.code == 403 && !isReconnecting && savedBaseUrl != null && savedToken != null) {
@@ -105,19 +111,19 @@ object NotificationWebSocketManager {
                     delay(1000)
                     reconnectWithNewToken()
                 }
-            } else {
-                _isConnected.value = false
             }
         }
 
         override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
             Log.d(TAG, "⚠️ WebSocket cerrándose: $code - $reason")
             _isConnected.value = false
+            isConnecting = false
         }
 
         override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
             Log.d(TAG, "🔒 WebSocket cerrado: $code - $reason")
             _isConnected.value = false
+            isConnecting = false
         }
     }
 
@@ -166,6 +172,7 @@ object NotificationWebSocketManager {
         webSocket?.close(1000, "Reconectando con nuevo token")
         webSocket = null
         _isConnected.value = false
+        isConnecting = false
 
         // Reconectar con token guardado
         savedBaseUrl?.let { baseUrl ->
@@ -189,6 +196,11 @@ object NotificationWebSocketManager {
             return
         }
 
+        if (isConnecting) {
+            Log.d(TAG, "⏳ Ya hay una conexión en proceso, ignorando...")
+            return
+        }
+
         connectInternal(baseUrl, token)
     }
 
@@ -199,6 +211,8 @@ object NotificationWebSocketManager {
         Log.d(TAG, "🔌 ════════════════════════════════════════")
         Log.d(TAG, "🔌 CONECTANDO WEBSOCKET DE NOTIFICACIONES")
         Log.d(TAG, "🔌 ════════════════════════════════════════")
+
+        isConnecting = true
 
         // 🔥 ENVIAR TOKEN EN QUERY PARAMS (más confiable para WebSocket)
         val wsUrl = baseUrl
@@ -234,6 +248,8 @@ object NotificationWebSocketManager {
         if (isConnected()) {
             Log.d(TAG, "   ✅ WebSocket conectado: Enviando refresh")
             updateToken(newToken)
+        } else if (isConnecting) {
+            Log.d(TAG, "   ⏳ Ya hay una conexión en proceso (triggered by token update), ignorando...")
         } else {
             Log.d(TAG, "   ⚠️ WebSocket NO conectado")
 
@@ -328,27 +344,29 @@ object NotificationWebSocketManager {
     }
 
     /**
-     * Cierra la conexión
+     * Cierra la conexión y limpia los parámetros (usar en Logout)
      */
     fun close() {
         Log.d(TAG, "🔒 ════════════════════════════════════════")
-        Log.d(TAG, "🔒 CERRANDO WEBSOCKET DE NOTIFICACIONES")
+        Log.d(TAG, "🔒 CERRANDO Y LIMPIANDO WEBSOCKET")
         Log.d(TAG, "🔒 ════════════════════════════════════════")
-
-        webSocket?.close(1000, "Cliente cerró la conexión")
-        webSocket = null
-        _isConnected.value = false
-        _unreadCounts.value = emptyMap()
-
-        // 🆕 Limpiar parámetros guardados
+        
+        disconnect()
+        
+        // Limpiar parámetros solo en cierre explícito
         savedBaseUrl = null
         savedToken = null
+    }
+
+    /**
+     * Solo desconecta el socket actual sin limpiar parámetros (para errores de token)
+     */
+    fun disconnect() {
+        webSocket?.close(1000, "Desconexión temporal")
+        webSocket = null
+        _isConnected.value = false
+        isConnecting = false
         isReconnecting = false
-
-        client?.dispatcher?.executorService?.shutdown()
-        client = null
-
-        Log.d(TAG, "✅ WebSocket cerrado y recursos liberados")
     }
 
 }
