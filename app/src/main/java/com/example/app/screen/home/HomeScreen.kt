@@ -594,7 +594,8 @@ fun HomeScreen(
                             1 -> AlternateRoutesScreen(
                                 navController = navController,
                                 token = accessToken,
-                                notificationViewModel = notificationViewModel
+                                notificationViewModel = notificationViewModel,
+                                authViewModel = authViewModel
                             )
                             2 -> RemindersScreen(
                                 navController = navController,

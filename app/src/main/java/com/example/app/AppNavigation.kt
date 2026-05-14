@@ -77,6 +77,7 @@ fun AppNavigation(
     )
     val isLoggedIn = authViewModel.isLoggedIn
     val isLoading = authViewModel.isLoading
+    val isRestoringSession = authViewModel.isRestoringSession
     val accessToken = authViewModel.accessToken
 
     // 🆕 INICIALIZAR NotificationWebSocketManager UNA SOLA VEZ (antes que WebSocketLocationManager)
@@ -89,9 +90,8 @@ fun AppNavigation(
     }
 
     // Conectar WebSocket de Notificaciones
-    val isRestoringSession = authViewModel.isRestoringSession
     LaunchedEffect(isLoggedIn, accessToken, isRestoringSession) {
-        if (isLoggedIn && accessToken != null && !isRestoringSession) {
+        if (isLoggedIn && accessToken != null) {
             val baseUrl = BuildConfig.BASE_URL.removeSuffix("/")
 
             Log.d("AppNavigation", "🚀 USUARIO LOGUEADO - CONECTANDO WEBSOCKETS")
@@ -101,7 +101,7 @@ fun AppNavigation(
 
             Log.d("AppNavigation", "ℹ️ WebSocket de ubicaciones se conectará desde LocationService")
             Log.d("AppNavigation", "✅ WebSockets de notificaciones conectado")
-        } else {
+        } else if (!isRestoringSession) {
             Log.d("AppNavigation", "🔒 USUARIO NO LOGUEADO - CERRANDO WEBSOCKETS")
 
             NotificationWebSocketManager.close()
@@ -211,16 +211,18 @@ fun AppNavigation(
             }
 
             composable("rutas") {
-                val token = authViewModel.accessToken ?: ""
                 AlternateRoutesScreen(
+                    token = authViewModel.accessToken ?: "",
                     navController = navController,
-                    token = token,
-                    notificationViewModel = notificationViewModel
+                    notificationViewModel = notificationViewModel,
+                    authViewModel = authViewModel
                 )
             }
             composable("mapa") {
-                MapScreen(navController = navController,
-                    notificationViewModel = notificationViewModel
+                MapScreen(
+                    navController = navController,
+                    notificationViewModel = notificationViewModel,
+                    authViewModel = authViewModel
                 )
             }
 
@@ -413,7 +415,8 @@ fun AppNavigation(
                 MisZonasPeligrosasScreen(
                     navController = navController,
                     notificationViewModel = notificationViewModel,
-                    mapViewModel = mapViewModel
+                    mapViewModel = mapViewModel,
+                    authViewModel = authViewModel
                 )
             }
 

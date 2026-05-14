@@ -94,16 +94,17 @@ import kotlinx.coroutines.launch
 fun MisZonasPeligrosasScreen(
     navController: NavController,
     notificationViewModel: NotificationViewModel,
-    mapViewModel: MapViewModel
+    mapViewModel: MapViewModel,
+    authViewModel: com.remembergo.app.viewmodel.AuthViewModel
 ) {
 
     val context = LocalContext.current
     val locationManager = remember { LocationManager.getInstance() }
-    val sessionManager = remember { SessionManager.getInstance(context) }
-    val token = sessionManager.getAccessToken() ?: return
+    val accessToken by remember { androidx.compose.runtime.derivedStateOf { authViewModel.accessToken } }
+    val token = accessToken ?: ""
 
     var zonaSugeridaPreview by remember { mutableStateOf<ZonaSugerida?>(null) }
-    val zonasSugeridasVM = remember { ZonasSugeridasViewModel(token) }
+    val zonasSugeridasVM = remember(token) { ZonasSugeridasViewModel(token) }
 
     var currentLat by remember { mutableStateOf(0.0) }
     var currentLon by remember { mutableStateOf(0.0) }

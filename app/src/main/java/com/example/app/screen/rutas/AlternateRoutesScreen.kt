@@ -48,6 +48,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -71,6 +72,7 @@ import com.remembergo.app.models.UbicacionUsuarioResponse
 import com.remembergo.app.screen.components.AppButton
 import com.remembergo.app.ui.theme.AppColors
 import com.remembergo.app.ui.theme.SecurityColors
+import com.remembergo.app.viewmodel.AuthViewModel
 import com.remembergo.app.viewmodel.NotificationViewModel
 import com.remembergo.app.viewmodel.UbicacionesViewModel
 import com.remembergo.app.viewmodel.UbicacionesViewModelFactory
@@ -81,11 +83,13 @@ fun AlternateRoutesScreen(
     token: String,
     modifier: Modifier = Modifier,
     navController: NavController,
-    notificationViewModel: NotificationViewModel
+    notificationViewModel: NotificationViewModel,
+    authViewModel: AuthViewModel
 ) {
     val context = LocalContext.current
+    val currentToken by remember { derivedStateOf { authViewModel.accessToken ?: token } }
     val viewModel: UbicacionesViewModel = viewModel(
-        factory = UbicacionesViewModelFactory(context, token)
+        factory = UbicacionesViewModelFactory(context, currentToken)
     )
     val isDarkTheme = isSystemInDarkTheme()
 

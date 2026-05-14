@@ -63,6 +63,7 @@ import com.remembergo.app.ui.theme.SecurityColors
 import com.remembergo.app.utils.DialogoCrearZonaPeligrosa
 import com.remembergo.app.utils.LocationManager
 import com.remembergo.app.utils.SessionManager
+import com.remembergo.app.viewmodel.AuthViewModel
 import com.remembergo.app.viewmodel.MapViewModel
 import com.remembergo.app.viewmodel.MapViewModelFactory
 import com.remembergo.app.viewmodel.NotificationViewModel
@@ -80,12 +81,13 @@ fun MapScreen(
     defaultLon: Double = 0.0,
     onConfirmClick: () -> Unit = {},
     mapViewModel: MapViewModel = viewModel(factory = MapViewModelFactory(LocalContext.current)),
-    notificationViewModel: NotificationViewModel
+    notificationViewModel: NotificationViewModel,
+    authViewModel: AuthViewModel = viewModel(factory = AuthViewModel.AuthViewModelFactory(LocalContext.current))
 ) {
     val context = LocalContext.current
     val locationManager = remember { LocationManager.getInstance() }
-    val sessionManager = remember { SessionManager.getInstance(context) }
-    val token = sessionManager.getAccessToken() ?: return
+    val accessToken by remember { derivedStateOf { authViewModel.accessToken } }
+    val token = accessToken ?: return
     val isDarkTheme = isSystemInDarkTheme()
 
     var currentLat by remember { mutableStateOf(0.0) }
@@ -95,6 +97,7 @@ fun MapScreen(
 
     var currentAddress by remember { mutableStateOf("") }
     var selectedAddress by remember { mutableStateOf("") }
+    var isGeocoding by remember { mutableStateOf(false) }
 
     var recenterTrigger by remember { mutableStateOf(0) }
     var job by remember { mutableStateOf<Job?>(null) }
@@ -239,7 +242,24 @@ fun MapScreen(
                         centerLon = mapCenterLon,
                         isDarkTheme = isDarkTheme,          // <-- ADD THIS
                         onLocationSelected = { lat, lon ->
-                            // ... existing code unchanged
+                            mapCenterLat = lat
+                            mapCenterLon = lon
+                            
+                            // Debounce para no saturar el servicio de geocodificación mientras se mueve el mapa
+                            job?.cancel()
+                            job = scope.launch {
+                                isGeocoding = true
+                                delay(600) 
+                                try {
+                                    val response = NominatimClient.apiService.reverseGeocode(lat, lon)
+                                    selectedAddress = response.display_name ?: ""
+                                    Log.d("MapScreen", "📍 Nueva ubicación detectada: $selectedAddress")
+                                } catch (e: Exception) {
+                                    Log.e("MapScreen", "Error en reverse geocode: ${e.message}")
+                                } finally {
+                                    isGeocoding = false
+                                }
+                            }
                         },
                         onLocationLongPress = { lat, lon ->
                             coordenadasZonaSeleccionada = Pair(lat, lon)
@@ -369,10 +389,10 @@ fun MapScreen(
                                 }
                             )
 
-                            if (selectedAddress.isNotEmpty() && selectedAddress != currentAddress) {
+                            if (selectedAddress.isNotEmpty() || isGeocoding) {
                                 CompactLocationCard(
                                     title = context.getString(com.remembergo.app.R.string.map_selected_location),
-                                    location = selectedAddress,
+                                    location = if (isGeocoding) context.getString(com.remembergo.app.R.string.map_getting_location) else selectedAddress,
                                     icon = Icons.Default.LocationOn,
                                     iconColor = Color(0xFFEF4444)
                                 )
@@ -382,6 +402,7 @@ fun MapScreen(
 
                     BottomConfirmPanel(
                         selectedLocation = selectedAddress,
+                        isGeocoding = isGeocoding,
                         modifier = Modifier.align(Alignment.BottomCenter),
                         locationName = locationName,
                         onLocationNameChange = { locationName = it },
@@ -446,6 +467,7 @@ fun MapScreen(
 
                         scope.launch {
                             try {
+                                isGeocoding = true
                                 val response = NominatimClient.apiService.reverseGeocode(
                                     lat = lat,
                                     lon = lon
@@ -462,6 +484,8 @@ fun MapScreen(
                                 notificationViewModel.showError(
                                     context.getString(com.remembergo.app.R.string.map_location_error, e.message ?: "")
                                 )
+                            } finally {
+                                isGeocoding = false
                             }
                         }
                     },
@@ -694,13 +718,14 @@ fun BottomConfirmPanel(
     locationName: String,
     onLocationNameChange: (String) -> Unit,
     onConfirmClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    isGeocoding: Boolean = false
 ) {
     val context = LocalContext.current
     val canConfirm = selectedLocation.isNotEmpty() && locationName.trim().isNotEmpty()
 
     AnimatedVisibility(
-        visible = selectedLocation.isNotEmpty(),
+        visible = selectedLocation.isNotEmpty() || isGeocoding,
         enter = fadeIn() + slideInVertically(initialOffsetY = { it }),
         exit = fadeOut() + slideOutVertically(targetOffsetY = { it }),
         modifier = modifier
@@ -742,7 +767,23 @@ fun BottomConfirmPanel(
                     )
                 }
 
-                Spacer(modifier = Modifier.height(16.dp))
+                if (isGeocoding) {
+                    LinearProgressIndicator(
+                        modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                } else if (selectedLocation.isNotEmpty()) {
+                    Text(
+                        text = selectedLocation,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier.padding(vertical = 8.dp)
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(8.dp))
 
                 AppTextField(
                     value = locationName,
