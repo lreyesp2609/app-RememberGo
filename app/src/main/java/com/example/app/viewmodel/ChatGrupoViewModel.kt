@@ -14,6 +14,7 @@ import com.remembergo.app.repository.MensajesRepository
 import com.remembergo.app.utils.SessionManager
 import com.google.gson.Gson
 import com.google.gson.JsonObject
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -59,8 +60,21 @@ class ChatGrupoViewModel(context: Context) : ViewModel() {
             _isLoading.value = true
             _error.value = null
 
+            // 🆕 Timeout de 8 segundos para no bloquear la pantalla (Fix B)
+            val timeoutJob = launch {
+                delay(8000)
+                if (_isLoading.value) {
+                    Log.w(TAG, "⏳ Timeout cargando mensajes. Mostrando error.")
+                    _isLoading.value = false
+                    if (_mensajes.value.isEmpty()) {
+                        _error.value = "Sin conexión. Intentando reconectar..."
+                    }
+                }
+            }
+
             repository.obtenerMensajesGrupo(grupoId)
                 .onSuccess { mensajesResponse ->
+                    timeoutJob.cancel()
                     val mensajesUI = mensajesResponse.mapNotNull { it.toMensajeUI(currentUserId) }
                     _mensajes.value = mensajesUI
                     Log.d(TAG, "✅ ${mensajesUI.size} mensajes cargados correctamente")
@@ -69,6 +83,7 @@ class ChatGrupoViewModel(context: Context) : ViewModel() {
                     conectarWebSocket(grupoId)
                 }
                 .onFailure { exception ->
+                    timeoutJob.cancel()
                     _error.value = exception.message ?: "Error desconocido"
                     Log.e(TAG, "❌ Error al cargar mensajes: ${exception.message}")
                 }

@@ -1,13 +1,22 @@
 package com.remembergo.app.utils
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import com.remembergo.app.models.User
+import com.remembergo.app.network.RetrofitClient
 import com.google.gson.Gson
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.util.concurrent.atomic.AtomicBoolean
 
 class SessionManager private constructor(context: Context) {
     private val prefs = context.applicationContext.getSharedPreferences("recuerdago_prefs", Context.MODE_PRIVATE)
     private val gson = Gson()
+
+    // 🆕 Flag atómico para evitar múltiples refrescos simultáneos
+    private val isRefreshing = AtomicBoolean(false)
 
     // 🆕 Listener para cambios de token
     private val tokenListeners = mutableListOf<(String) -> Unit>()
@@ -139,6 +148,65 @@ class SessionManager private constructor(context: Context) {
 
     fun hasValidSession(): Boolean {
         return getRefreshToken() != null && isLoggedIn()
+    }
+
+    /**
+     * 🆕 Intenta refrescar el access token usando el refresh token almacenado.
+     * Si falla o el refresh token no existe, cierra la sesión.
+     */
+    fun refreshAccessToken(context: Context, onComplete: (Boolean) -> Unit = {}) {
+        if (!isRefreshing.compareAndSet(false, true)) {
+            Log.d(TAG, "⏳ Ya hay un refresco de token en curso, ignorando solicitud...")
+            return
+        }
+
+        val refreshToken = getRefreshToken()
+        if (refreshToken == null) {
+            Log.e(TAG, "❌ No hay Refresh Token, cerrando sesión...")
+            logoutAndRedirect(context)
+            isRefreshing.set(false)
+            onComplete(false)
+            return
+        }
+
+        Log.d(TAG, "🔄 Iniciando refresco de token...")
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = RetrofitClient.apiService.refreshToken(refreshToken)
+
+                if (response.isSuccessful && response.body() != null) {
+                    val loginResponse = response.body()!!
+                    Log.d(TAG, "✅ Token refrescado exitosamente")
+                    // saveTokens ya notifica a los listeners registrados
+                    saveTokens(loginResponse.accessToken, loginResponse.refreshToken)
+                    isRefreshing.set(false)
+                    onComplete(true)
+                } else {
+                    Log.e(TAG, "❌ Error al refrescar token: ${response.code()} ${response.message()}")
+                    logoutAndRedirect(context)
+                    isRefreshing.set(false)
+                    onComplete(false)
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "❌ Excepción al refrescar token: ${e.message}")
+                isRefreshing.set(false)
+                onComplete(false)
+            }
+        }
+    }
+
+    /**
+     * 🆕 Limpia la sesión y redirige al usuario al Login
+     */
+    private fun logoutAndRedirect(context: Context) {
+        clear()
+        saveLoginState(false)
+        
+        val intent = context.packageManager.getLaunchIntentForPackage(context.packageName)?.apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        }
+        context.startActivity(intent)
+        Log.w(TAG, "🚪 Sesión cerrada por error de autenticación")
     }
 
 }

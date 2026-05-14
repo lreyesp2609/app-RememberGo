@@ -30,6 +30,7 @@ class LocationTrackingService : Service() {
         private const val CHANNEL_ID = "location_tracking_channel"
         private const val UPDATE_INTERVAL = 5000L
         private const val FASTEST_INTERVAL = 3000L
+        private const val MAX_RECONNECTION_ATTEMPTS = 3
 
         const val ACTION_START_TRACKING = "START_TRACKING"
         const val ACTION_STOP_TRACKING = "STOP_TRACKING"
@@ -116,8 +117,8 @@ class LocationTrackingService : Service() {
     private val grupoNombres = mutableMapOf<Int, String>()
     private var locationUpdatesStarted = false
 
-    // 🆕 Listeners locales para broadcast a ViewModels
-    private val messageListeners = mutableListOf<(String) -> Unit>()
+    // 🆕 Contador de reintentos por grupo para evitar bucles infinitos
+    private val reconnectionAttempts = mutableMapOf<Int, Int>()
 
     override fun onCreate() {
         super.onCreate()
@@ -127,6 +128,20 @@ class LocationTrackingService : Service() {
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         sessionManager = SessionManager.getInstance(this)
+
+        // 🆕 Escuchar cambios de token para reconectar WebSockets automáticamente
+        sessionManager.addTokenChangeListener { newToken ->
+            Log.d(TAG, "🔄 Token actualizado detectado en el Servicio. Reconectando grupos activos...")
+            activeGroups.forEach { grupoId ->
+                val attempts = reconnectionAttempts.getOrDefault(grupoId, 0)
+                if (attempts < MAX_RECONNECTION_ATTEMPTS) {
+                    val nombre = grupoNombres[grupoId] ?: "Grupo $grupoId"
+                    connectWebSocketForGroup(grupoId, nombre)
+                } else {
+                    Log.e(TAG, "⚠️ Límite de reintentos alcanzado para grupo $grupoId. No se reconectará automáticamente.")
+                }
+            }
+        }
 
         createNotificationChannel()
         setupLocationCallback()
@@ -280,10 +295,33 @@ class LocationTrackingService : Service() {
         val listener = object : WebSocketListener() {
             override fun onOpen(webSocket: WebSocket, response: Response) {
                 Log.d(TAG, "✅ WebSocket conectado para grupo $grupoId")
+                reconnectionAttempts[grupoId] = 0 // 🆕 Resetear contador de reintentos al conectar con éxito
                 updateNotification()
             }
 
             override fun onMessage(webSocket: WebSocket, text: String) {
+                // 🆕 Detectar errores de autenticación enviados como JSON
+                try {
+                    val json = JSONObject(text)
+                    if (json.optString("type") == "error") {
+                        val code = json.optString("code")
+                        if (code == "INVALID_TOKEN" || code == "TOKEN_EXPIRED") {
+                            Log.e(TAG, "🔒 Error de token en grupo $grupoId: $code. Solicitando refresh...")
+
+                            // Cerrar socket actual y aumentar contador de reintentos
+                            webSocket.close(1000, "Token expirado")
+                            val attempts = reconnectionAttempts.getOrDefault(grupoId, 0)
+                            reconnectionAttempts[grupoId] = attempts + 1
+
+                            // Solicitar refresh al manager
+                            sessionManager.refreshAccessToken(applicationContext)
+                            return // No propagar mensaje de error a los listeners
+                        }
+                    }
+                } catch (e: Exception) {
+                    // No es un JSON de error o está mal formado, continuar normalmente
+                }
+
                 Log.v(TAG, "📨 Mensaje recibido del grupo $grupoId: ${text.take(100)}")
 
                 // ✅ Solo notificar a listeners de ESTE grupo específico
@@ -299,6 +337,12 @@ class LocationTrackingService : Service() {
             override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
                 Log.e(TAG, "❌ Error WebSocket grupo $grupoId: ${t.message}")
                 Log.e(TAG, "   Respuesta: ${response?.code} ${response?.message}")
+
+                // 🆕 Detectar Broken pipe como trigger de refresh (Fix A)
+                if (t.message?.contains("Broken pipe") == true) {
+                    Log.w(TAG, "⚠️ Broken pipe detectado. Solicitando refresh de token...")
+                    sessionManager.refreshAccessToken(applicationContext)
+                }
 
                 if (response?.code == 403) {
                     Log.w(TAG, "⚠️ 403 Forbidden - Usuario ya conectado o sin permisos")

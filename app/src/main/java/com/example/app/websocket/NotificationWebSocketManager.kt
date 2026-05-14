@@ -30,6 +30,9 @@ object NotificationWebSocketManager {
     private var client: OkHttpClient? = null
     private val gson = Gson()
 
+    // 🆕 Para invocar refresh desde el listener
+    private var appContext: Context? = null
+
     // 🆕 Guardar parámetros de conexión para reconexión
     private var savedBaseUrl: String? = null
     private var savedToken: String? = null
@@ -82,8 +85,13 @@ object NotificationWebSocketManager {
                         Log.e(TAG, "❌ Error del servidor [$code]: $message")
 
                         if (code == "TOKEN_EXPIRED" || code == "INVALID_TOKEN") {
-                            Log.e(TAG, "🔒 Token inválido [$code], esperando refresh...")
+                            Log.e(TAG, "🔒 Token inválido [$code], disparando refresh...")
                             disconnect() // Desconectar pero mantener savedBaseUrl para reconectar luego
+                            
+                            // 🆕 Disparar el refresh de token activamente
+                            appContext?.let { ctx ->
+                                SessionManager.getInstance(ctx).refreshAccessToken(ctx)
+                            }
                         }
                     }
                     else -> {
@@ -100,6 +108,14 @@ object NotificationWebSocketManager {
             Log.e(TAG, "❌ Error en WebSocket: ${t.message}")
             isConnecting = false
             _isConnected.value = false
+
+            // 🆕 Trigger de refresh en Broken pipe
+            if (t.message?.contains("Broken pipe") == true) {
+                Log.w(TAG, "⚠️ Broken pipe detectado en Notificaciones. Solicitando refresh...")
+                appContext?.let { ctx ->
+                    SessionManager.getInstance(ctx).refreshAccessToken(ctx)
+                }
+            }
 
             // 🆕 Si es error 403 y NO estamos reconectando, reconectar con nuevo token
             if (response?.code == 403 && !isReconnecting && savedBaseUrl != null && savedToken != null) {
@@ -135,6 +151,8 @@ object NotificationWebSocketManager {
             Log.d(TAG, "ℹ️ Ya está inicializado")
             return
         }
+
+        appContext = context.applicationContext // 🆕 Guardar contexto
 
         Log.e(TAG, "════════════════════════════════════════")
         Log.e(TAG, "🚀 INICIALIZANDO NOTIFICATION WEBSOCKET MANAGER")

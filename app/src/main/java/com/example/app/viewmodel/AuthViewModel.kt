@@ -85,8 +85,20 @@ class AuthViewModel(private val context: Context) : ViewModel() {
             viewModelScope.launch {
                 isLoading = true
                 isRestoringSession = true
+
+                // 🆕 Timeout de seguridad para evitar splash/loading infinito (Fix B)
+                val timeoutJob = launch {
+                    delay(8000)
+                    if (isLoading) {
+                        Log.w(TAG, "⏳ Timeout en restauración de sesión. Liberando UI...")
+                        isLoading = false
+                        isRestoringSession = false
+                    }
+                }
+
                 repository.refreshToken(savedRefresh).fold(
                     onSuccess = { response ->
+                        timeoutJob.cancel()
                         accessToken = response.accessToken
                         isLoggedIn = true
                         sessionManager.saveTokens(response.accessToken, response.refreshToken)
