@@ -272,4 +272,27 @@ class AuthRepository {
             }
         }
     }
+
+    suspend fun forgotPassword(correo: String): Result<String> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val request = mapOf("correo" to correo)
+                val response = api.forgotPassword(request)
+                if (response.isSuccessful) {
+                    val message = response.body()?.get("mensaje") ?: "Solicitud enviada"
+                    Result.success(message)
+                } else {
+                    Result.failure(Exception("HTTP_ERROR:${response.code()}"))
+                }
+            } catch (e: SocketTimeoutException) {
+                Result.failure(Exception("NETWORK_ERROR:TIMEOUT"))
+            } catch (e: UnknownHostException) {
+                Result.failure(Exception("NETWORK_ERROR:NO_INTERNET"))
+            } catch (e: IOException) {
+                Result.failure(Exception("NETWORK_ERROR:IO_EXCEPTION"))
+            } catch (e: Exception) {
+                Result.failure(Exception("UNKNOWN_ERROR:${e.message}"))
+            }
+        }
+    }
 }

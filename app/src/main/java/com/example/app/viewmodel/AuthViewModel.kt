@@ -656,6 +656,24 @@ class AuthViewModel(private val context: Context) : ViewModel() {
         errorMessage = null
     }
 
+    fun forgotPassword(email: String, onResult: (String?) -> Unit) {
+        viewModelScope.launch {
+            isLoading = true
+            val result = repository.forgotPassword(email)
+            isLoading = false
+            result.onSuccess { mensaje ->
+                onResult(mensaje)
+            }.onFailure { error ->
+                val msg = error.message ?: ""
+                val friendlyError = when {
+                    msg.contains("NETWORK_ERROR") -> context.getString(R.string.error_no_internet)
+                    else -> "Si el correo está registrado, recibirás un email en breve. Revisa también tu carpeta de spam."
+                }
+                onResult(friendlyError)
+            }
+        }
+    }
+
     class AuthViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(AuthViewModel::class.java)) {

@@ -4,7 +4,7 @@
     <selectionStates>
       <SelectionState runConfigName="RememberGo">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2026-05-14T01:01:36.657879200Z">
+        <DropdownSelection timestamp="2026-06-04T23:22:50.197331Z">
           <Target type="DEFAULT_BOOT">
             <handle>
               <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\lreye\.android\avd\Pixel_7.avd" />
@@ -15,10 +15,10 @@
       </SelectionState>
       <SelectionState runConfigName="RememberGo 2">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2026-05-13T22:58:08.954834700Z">
+        <DropdownSelection timestamp="2026-05-14T13:02:19.153123Z">
           <Target type="DEFAULT_BOOT">
             <handle>
-              <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\lreye\.android\avd\Pixel_7.avd" />
+              <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\lreye\.android\avd\Pixel_8.avd" />
             </handle>
           </Target>
         </DropdownSelection>

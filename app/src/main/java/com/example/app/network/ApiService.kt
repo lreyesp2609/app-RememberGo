@@ -60,4 +60,9 @@ interface ApiService {
     suspend fun eliminarTodosLosTokens(
         @Header("Authorization") token: String
     ): Response<Unit>
+
+    @POST("login/forgot-password")
+    suspend fun forgotPassword(
+        @Body request: Map<String, String>
+    ): Response<Map<String, String>>
 }

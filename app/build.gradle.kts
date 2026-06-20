@@ -6,7 +6,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     id("com.google.devtools.ksp")
-    id("com.google.gms.google-services") // ✅ MOVER AQUÍ (sin version)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -85,6 +85,7 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation("androidx.appcompat:appcompat:1.7.0")
+    implementation("androidx.emoji2:emoji2-emojipicker:1.5.0")
 
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")

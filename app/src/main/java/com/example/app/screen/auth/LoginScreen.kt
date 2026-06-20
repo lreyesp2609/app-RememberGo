@@ -153,7 +153,26 @@ fun LoginScreen(
             modifier = Modifier.fillMaxWidth()
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        // Enlace de "¿Olvidaste tu contraseña?" justo debajo de la contraseña
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.End
+        ) {
+            TextButton(
+                onClick = { navController.navigate("forgot_password") },
+                enabled = !authViewModel.isLoading,
+                contentPadding = PaddingValues(0.dp)
+            ) {
+                Text(
+                    text = "¿Olvidaste tu contraseña?",
+                    color = MaterialTheme.colorScheme.primary,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Medium
+                )
+            }
+        }
+
+        Spacer(modifier = Modifier.height(8.dp))
 
         if (authViewModel.loginState is LoginState.Retrying) {
             val state = authViewModel.loginState as LoginState.Retrying
@@ -209,7 +228,7 @@ fun LoginScreen(
             )
         }
 
-        Spacer(modifier = Modifier.weight(1f))
+        Spacer(modifier = Modifier.height(24.dp))
 
         AppButton(
             text = stringResource(R.string.create_new_account),

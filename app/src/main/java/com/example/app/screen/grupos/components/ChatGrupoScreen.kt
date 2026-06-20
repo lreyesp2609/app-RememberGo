@@ -1,5 +1,6 @@
 package com.remembergo.app.screen.grupos.components
 
+import androidx.compose.material3.ExperimentalMaterial3Api
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
@@ -35,6 +36,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.viewinterop.AndroidView
+import androidx.emoji2.emojipicker.EmojiPickerView
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
@@ -46,6 +49,7 @@ import com.remembergo.app.viewmodel.ChatGrupoViewModel
 import com.remembergo.app.viewmodel.ChatGrupoViewModelFactory
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ChatGrupoScreen(
     grupoId: Int,
@@ -77,6 +81,8 @@ fun ChatGrupoScreen(
     val isConnected by viewModel.isConnected.collectAsState()
 
     var mensajeTexto by remember { mutableStateOf("") }
+    var showEmojiPicker by remember { mutableStateOf(false) }
+    val sheetState = rememberModalBottomSheetState()
 
     val pagerState = rememberPagerState(initialPage = 0, pageCount = { 2 })
     val coroutineScope = rememberCoroutineScope()
@@ -117,6 +123,7 @@ fun ChatGrupoScreen(
                             mensajeTexto = ""
                         }
                     },
+                    onEmojiClick = { showEmojiPicker = true },
                     onMapClick = {
                         coroutineScope.launch {
                             pagerState.animateScrollToPage(1)
@@ -192,6 +199,28 @@ fun ChatGrupoScreen(
 
             // 🔥 PageIndicator ELIMINADO
         }
+
+        if (showEmojiPicker) {
+            ModalBottomSheet(
+                onDismissRequest = { showEmojiPicker = false },
+                sheetState = sheetState,
+                dragHandle = { BottomSheetDefaults.DragHandle() }
+            ) {
+                AndroidView(
+                    factory = { context ->
+                        EmojiPickerView(context).apply {
+                            setOnEmojiPickedListener { item ->
+                                mensajeTexto += item.emoji
+                                showEmojiPicker = false
+                            }
+                        }
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(350.dp)
+                )
+            }
+        }
     }
 }
 
@@ -259,6 +288,7 @@ fun ChatInputBar(
     mensaje: String,
     onMensajeChange: (String) -> Unit,
     onEnviarClick: () -> Unit,
+    onEmojiClick: () -> Unit,
     onMapClick: () -> Unit,
     enabled: Boolean = true
 ) {
@@ -310,7 +340,7 @@ fun ChatInputBar(
                         tint = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier
                             .size(24.dp)
-                            .clickable { /* TODO: Abrir selector de emoji */ }
+                            .clickable { onEmojiClick() }
                     )
 
                     Spacer(modifier = Modifier.width(8.dp))

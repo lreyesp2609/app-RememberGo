@@ -32,6 +32,7 @@ import com.remembergo.app.network.AppDatabase
 import com.remembergo.app.repository.ReminderRepository
 import com.remembergo.app.repository.RutasRepository
 import com.remembergo.app.screen.SplashScreen
+import com.remembergo.app.screen.auth.ForgotPasswordScreen
 import com.remembergo.app.screen.auth.LoginScreen
 import com.remembergo.app.screen.auth.RegisterScreen
 import com.remembergo.app.screen.config.SettingsScreen
@@ -201,6 +202,14 @@ fun AppNavigation(
             }
             composable("register") {
                 RegisterScreen(
+                    navController = navController,
+                    authViewModel = authViewModel,
+                    notificationViewModel = notificationViewModel
+                )
+            }
+
+            composable("forgot_password") {
+                ForgotPasswordScreen(
                     navController = navController,
                     authViewModel = authViewModel,
                     notificationViewModel = notificationViewModel
